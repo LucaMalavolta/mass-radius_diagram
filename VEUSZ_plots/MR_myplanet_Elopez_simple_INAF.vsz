@@ -1,5 +1,5 @@
 # Veusz saved document (version 1.25.1)
-# Saved at 2017-04-21T10:15:36.137148
+# Saved at 2017-04-21T10:21:01.520808
 
 AddImportPath(u'/home/malavolta/CODE/mass-radius_diagram/VEUSZ_plots')
 ImportFile(u'../ELopez_tracks/10pc_HHe_MvR.dat', u'', ignoretext=True, linked=True, prefix=u'10pcHHe_')
@@ -298,7 +298,7 @@ Set('Color/points', [])
 Set('Color/min', 3.0)
 Set('Color/max', 3500.0)
 Set('Color/scaling', u'log')
-Set('MarkerLine/color', u'blue')
+Set('MarkerLine/color', u'green')
 Set('MarkerLine/width', u'1pt')
 Set('MarkerFill/color', u'darkgreen')
 Set('MarkerFill/colorMap', u'blank')
