@@ -63,17 +63,20 @@ perc_error = pl_masseerr_avg/pl_masse * 100.
 perc_error = pl_denserr_avg/pl_dens * 100.
 
 sel20 = (perc_error <= 20.)
+sel25 = (perc_error <= 25.)
 sel40 = (perc_error > 20.) & (perc_error <= 40.)
 sel60 = (perc_error > 40.) & (perc_error <= 60.)
 sel80 = (perc_error > 60.)
 #sel100 = (perc_error > 60.) & (perc_error <= 70.)
 
 nottv_sel20 = (perc_error <= 20.)& (pl_ttvflag<1)
+nottv_sel25 = (perc_error <= 25.)& (pl_ttvflag<1)
 nottv_sel40 = (perc_error > 20.) & (perc_error <= 40.) & (pl_ttvflag<1)
 nottv_sel60 = (perc_error > 40.) & (perc_error <= 60.)& (pl_ttvflag<1)
 nottv_sel80 = (perc_error > 60.)& (pl_ttvflag<1)
 
 ttv_sel20 = (perc_error <= 20.) & (pl_ttvflag>0)
+ttv_sel25 = (perc_error <= 25.) & (pl_ttvflag>0)
 ttv_sel40 = (perc_error > 20.) & (perc_error <= 40.) & (pl_ttvflag>0)
 ttv_sel60 = (perc_error > 40.) & (perc_error <= 60.) & (pl_ttvflag>0)
 ttv_sel80 = (perc_error > 60.) & (pl_ttvflag>0)
@@ -94,14 +97,19 @@ for nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, ttv in \
     fileout.write('"{0:s}" {1:15f} {2:15f} {3:15f} {4:15f} {5:15f} {6:15f} {7:15f} {8:15f} {9:15f} {10:15f} {11:15f} {12:5.1f} \n'.format(nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, ttv))
 fileout.close()
 
+fileout = open('veusz_P25.dat','w')
+fileout.write('descriptor name p m,+,- r,+,- d,+,- ins ttv\n')
+for nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, ttv in \
+        zip(pl_names[sel25],pl_orbper[sel25],pl_masse[sel25],pl_masseerr1[sel25],pl_masseerr2[sel25],pl_rade[sel25],pl_radeerr1[sel25],pl_radeerr2[sel25],pl_dens[sel25],pl_denserr1[sel25],pl_denserr2[sel25],insol[sel25],pl_ttvflag[sel25]):
+    fileout.write('"{0:s}" {1:15f} {2:15f} {3:15f} {4:15f} {5:15f} {6:15f} {7:15f} {8:15f} {9:15f} {10:15f} {11:15f} {12:5.1f} \n'.format(nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, ttv))
+fileout.close()
+
 fileout = open('veusz_P40.dat','w')
 fileout.write('descriptor name p m,+,- r,+,- d,+,- ins ttv\n')
 for nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, ttv in \
         zip(pl_names[sel40],pl_orbper[sel40],pl_masse[sel40],pl_masseerr1[sel40],pl_masseerr2[sel40],pl_rade[sel40],pl_radeerr1[sel40],pl_radeerr2[sel40],pl_dens[sel40],pl_denserr1[sel40],pl_denserr2[sel40],insol[sel40],pl_ttvflag[sel40]):
     fileout.write('"{0:s}" {1:15f} {2:15f} {3:15f} {4:15f} {5:15f} {6:15f} {7:15f} {8:15f} {9:15f} {10:15f} {11:15f} {12:5.1f} \n'.format(nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, ttv))
 fileout.close()
-
-
 
 fileout = open('veusz_P60.dat','w')
 fileout.write('descriptor name p m,+,- r,+,- d,+,- ins ttv\n')
@@ -124,6 +132,13 @@ fileout = open('veusz_P20_ttv.dat','w')
 fileout.write('descriptor name p m,+,- r,+,- d,+,- ins ttv\n')
 for nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, ttv in \
         zip(pl_names[ttv_sel20],pl_orbper[ttv_sel20],pl_masse[ttv_sel20],pl_masseerr1[ttv_sel20],pl_masseerr2[ttv_sel20],pl_rade[ttv_sel20],pl_radeerr1[ttv_sel20],pl_radeerr2[ttv_sel20],pl_dens[ttv_sel20],pl_denserr1[ttv_sel20],pl_denserr2[ttv_sel20],insol[ttv_sel20],pl_ttvflag[ttv_sel20]):
+    fileout.write('"{0:s}" {1:15f} {2:15f} {3:15f} {4:15f} {5:15f} {6:15f} {7:15f} {8:15f} {9:15f} {10:15f} {11:15f} {12:5.1f} \n'.format(nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, ttv))
+fileout.close()
+
+fileout = open('veusz_P25_ttv.dat','w')
+fileout.write('descriptor name p m,+,- r,+,- d,+,- ins ttv\n')
+for nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, ttv in \
+        zip(pl_names[ttv_sel25],pl_orbper[ttv_sel25],pl_masse[ttv_sel25],pl_masseerr1[ttv_sel25],pl_masseerr2[ttv_sel25],pl_rade[ttv_sel25],pl_radeerr1[ttv_sel25],pl_radeerr2[ttv_sel25],pl_dens[ttv_sel25],pl_denserr1[ttv_sel25],pl_denserr2[ttv_sel25],insol[ttv_sel25],pl_ttvflag[ttv_sel25]):
     fileout.write('"{0:s}" {1:15f} {2:15f} {3:15f} {4:15f} {5:15f} {6:15f} {7:15f} {8:15f} {9:15f} {10:15f} {11:15f} {12:5.1f} \n'.format(nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, ttv))
 fileout.close()
 
@@ -154,6 +169,13 @@ fileout = open('veusz_P20_nottv.dat','w')
 fileout.write('descriptor name p m,+,- r,+,- d,+,- ins nottv\n')
 for nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, nottv in \
         zip(pl_names[nottv_sel20],pl_orbper[nottv_sel20],pl_masse[nottv_sel20],pl_masseerr1[nottv_sel20],pl_masseerr2[nottv_sel20],pl_rade[nottv_sel20],pl_radeerr1[nottv_sel20],pl_radeerr2[nottv_sel20],pl_dens[nottv_sel20],pl_denserr1[nottv_sel20],pl_denserr2[nottv_sel20],insol[nottv_sel20],pl_ttvflag[nottv_sel20]):
+    fileout.write('"{0:s}" {1:15f} {2:15f} {3:15f} {4:15f} {5:15f} {6:15f} {7:15f} {8:15f} {9:15f} {10:15f} {11:15f} {12:5.1f} \n'.format(nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, nottv))
+fileout.close()
+
+fileout = open('veusz_P25_nottv.dat','w')
+fileout.write('descriptor name p m,+,- r,+,- d,+,- ins nottv\n')
+for nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, nottv in \
+        zip(pl_names[nottv_sel25],pl_orbper[nottv_sel25],pl_masse[nottv_sel25],pl_masseerr1[nottv_sel25],pl_masseerr2[nottv_sel25],pl_rade[nottv_sel25],pl_radeerr1[nottv_sel25],pl_radeerr2[nottv_sel25],pl_dens[nottv_sel25],pl_denserr1[nottv_sel25],pl_denserr2[nottv_sel25],insol[nottv_sel25],pl_ttvflag[nottv_sel25]):
     fileout.write('"{0:s}" {1:15f} {2:15f} {3:15f} {4:15f} {5:15f} {6:15f} {7:15f} {8:15f} {9:15f} {10:15f} {11:15f} {12:5.1f} \n'.format(nm, p, m, mp, mm, r, rp, rm, d, dp, dm, ins, nottv))
 fileout.close()
 
