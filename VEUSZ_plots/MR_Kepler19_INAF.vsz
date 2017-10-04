@@ -1,0 +1,554 @@
+# Veusz saved document (version 1.27)
+# Saved at 2017-09-18T13:39:18.818017
+
+AddImportPath(u'/home/malavolta/CODE/mass-radius_diagram/VEUSZ_plots')
+ImportFile(u'../ELopez_tracks/10pc_HHe_MvR.dat', u'', ignoretext=True, linked=True, prefix=u'10pcHHe_')
+ImportFile(u'../VEUSZ_data/veusz.dat', u'', ignoretext=True, linked=True, prefix=u'ALL_')
+ImportFile(u'../ELopez_tracks/MaxIron_MvR.dat', u'', ignoretext=True, linked=True, prefix=u'MaxIron_')
+ImportFile(u'../VEUSZ_data/veusz_P25.dat', u'', ignoretext=True, linked=True, prefix=u'P25_')
+ImportFile(u'../VEUSZ_data/veusz_P25_nottv.dat', u'', ignoretext=True, linked=True, prefix=u'P25_nottv_')
+ImportFile(u'../VEUSZ_data/veusz_P25_ttv.dat', u'', ignoretext=True, linked=True, prefix=u'P25_ttv_')
+ImportFile(u'../my_planets/my_planets.dat', u'', ignoretext=True, linked=True, prefix=u'myPs_')
+ImportFile(u'../my_planets/solar_system.dat', u'', ignoretext=True, linked=True, prefix=u'solar_')
+ImportString(u'1pcHHe_density(numeric)','''
+6.467144e-01
+9.415513e-01
+1.460098e+00
+2.049454e+00
+2.753527e+00
+3.658642e+00
+4.766780e+00
+6.128136e+00
+6.128136e+00
+''')
+ImportString(u'1pcHHe_mass(numeric)','''
+1.000000e-01
+1.500000e+00
+2.400000e+00
+3.600000e+00
+5.500000e+00
+8.500000e+00
+1.300000e+01
+2.000000e+01
+2.000000e+01
+''')
+ImportString(u'1pcHHe_radius(numeric)','''
+2.000000e+00
+2.061216e+00
+2.082816e+00
+2.129426e+00
+2.222621e+00
+2.337441e+00
+2.465739e+00
+2.617831e+00
+2.617831e+00
+''')
+ImportString(u'EarthComp_Mearth(numeric)','''
+1.000000e-01
+1.231000e+00
+1.516000e+00
+1.866000e+00
+2.000000e+00
+2.462000e+00
+3.031000e+00
+4.000000e+00
+5.278000e+00
+7.464000e+00
+8.000000e+00
+1.056000e+01
+1.300000e+01
+1.600000e+01
+2.111000e+01
+2.425000e+01
+2.786000e+01
+''')
+ImportString(u'EarthComp_Rearth(numeric)','''
+3.000000e-01
+1.077300e+00
+1.142200e+00
+1.210000e+00
+1.233000e+00
+1.306000e+00
+1.381000e+00
+1.486000e+00
+1.596000e+00
+1.740000e+00
+1.770000e+00
+1.892000e+00
+1.987000e+00
+2.083000e+00
+2.216000e+00
+2.283000e+00
+2.349000e+00
+''')
+ImportString(u'PureRock_density(numeric)','''
+4.296115e+00
+4.406563e+00
+4.526860e+00
+4.657557e+00
+4.799241e+00
+4.921770e+00
+5.089215e+00
+5.269843e+00
+5.464561e+00
+5.674449e+00
+5.900795e+00
+6.145054e+00
+6.408903e+00
+6.694236e+00
+7.003389e+00
+7.337755e+00
+7.701022e+00
+8.096445e+00
+8.527828e+00
+8.999530e+00
+''')
+ImportString(u'PureRock_mass(numeric)','''
+1.000000e-01
+1.159685e+00
+1.358455e+00
+1.591293e+00
+1.864040e+00
+2.183535e+00
+2.557792e+00
+2.996196e+00
+3.509742e+00
+4.111309e+00
+4.815985e+00
+5.641442e+00
+6.608382e+00
+7.741054e+00
+9.067866e+00
+1.062209e+01
+1.244271e+01
+1.457539e+01
+1.707360e+01
+2.000000e+01
+''')
+ImportString(u'PureRock_radius(numeric)','''
+4.000000e-01
+1.130979e+00
+1.181563e+00
+1.233782e+00
+1.287662e+00
+1.346028e+00
+1.403177e+00
+1.462060e+00
+1.522700e+00
+1.585112e+00
+1.649298e+00
+1.715257e+00
+1.782973e+00
+1.852425e+00
+1.923564e+00
+1.996442e+00
+2.070920e+00
+2.146922e+00
+2.224350e+00
+2.303091e+00
+''')
+ImportString(u'PureWater_density(numeric)','''
+7.750733e-01
+8.502101e-01
+9.245251e-01
+9.993337e-01
+1.075578e+00
+1.154491e+00
+1.235720e+00
+1.324031e+00
+1.421441e+00
+1.529265e+00
+1.650024e+00
+1.781821e+00
+1.912568e+00
+2.045228e+00
+2.184777e+00
+2.335669e+00
+2.499068e+00
+2.673770e+00
+2.860848e+00
+3.063354e+00
+''')
+ImportString(u'PureWater_mass(numeric)','''
+1.000000e-01
+1.170780e+00
+1.370726e+00
+1.604818e+00
+1.878889e+00
+2.199765e+00
+2.575441e+00
+3.015275e+00
+3.530223e+00
+4.133114e+00
+4.838967e+00
+5.665366e+00
+6.632897e+00
+7.765662e+00
+9.091881e+00
+1.064459e+01
+1.246247e+01
+1.459082e+01
+1.708263e+01
+2.000001e+01
+''')
+ImportString(u'PureWater_radius(numeric)','''
+1.300000e+00
+1.963469e+00
+2.012418e+00
+2.066709e+00
+2.125498e+00
+2.187944e+00
+2.254334e+00
+2.321938e+00
+2.390005e+00
+2.458324e+00
+2.526166e+00
+2.595149e+00
+2.671385e+00
+2.753298e+00
+2.838725e+00
+2.926040e+00
+3.015202e+00
+3.107131e+00
+3.201801e+00
+3.298516e+00
+''')
+Add('page', name='page1', autoadd=False)
+To('page1')
+Add('graph', name='graph1', autoadd=False)
+To('graph1')
+Set('bottomMargin', u'1.7cm')
+Add('axis', name='x', autoadd=False)
+To('x')
+Set('label', u'Massa [M_{\\oplus}]')
+Set('min', 0.4)
+Set('max', 20.0)
+Set('log', False)
+Set('Label/size', u'12pt')
+Set('TickLabels/size', u'12pt')
+Set('MajorTicks/number', 6)
+Set('MajorTicks/manualTicks', [])
+Set('MinorTicks/hide', False)
+Set('MinorTicks/number', 1)
+To('..')
+Add('axis', name='y', autoadd=False)
+To('y')
+Set('label', u'Raggio [R_{\\oplus}]')
+Set('min', 0.85)
+Set('max', 3.5)
+Set('log', False)
+Set('direction', 'vertical')
+Set('Line/hide', False)
+Set('Label/size', u'12pt')
+Set('TickLabels/size', u'12pt')
+Set('TickLabels/format', u'%1.1f')
+Set('MajorTicks/manualTicks', [1.0, 1.5, 2.0, 2.5, 3.0])
+To('..')
+Add('key', name='key1', autoadd=False)
+To('key1')
+Set('hide', True)
+Set('Text/size', u'12pt')
+Set('Background/color', u'white')
+Set('Background/style', u'solid')
+Set('Background/transparency', 10)
+Set('Border/width', u'0.5pt')
+Set('Border/hide', False)
+Set('horzPosn', 'right')
+Set('vertPosn', 'bottom')
+Set('keyLength', u'0.5cm')
+Set('horzManual', 0.0)
+Set('vertManual', 0.0)
+Set('marginSize', 0.5)
+Set('columns', 1)
+Set('symbolswap', False)
+To('..')
+Add('label', name='label5', autoadd=False)
+To('label5')
+Set('label', u'Fascia collisionale')
+Set('xPos', [0.99])
+Set('yPos', [0.38])
+Set('alignHorz', u'right')
+Set('alignVert', u'centre')
+Set('angle', -12.0)
+Set('Text/size', u'12pt')
+Set('Text/color', u'black')
+To('..')
+Add('xy', name='xy1', autoadd=False)
+To('xy1')
+Set('markerSize', u'2pt')
+Set('xData', u'myPs_m')
+Set('yData', u'myPs_r')
+Set('hide', True)
+Set('labels', u'myPs_name')
+Set('Color/points', [])
+Set('Color/min', 3.0)
+Set('Color/max', 3500.0)
+Set('Color/scaling', u'log')
+Set('MarkerLine/color', u'darkcyan')
+Set('MarkerLine/width', u'1pt')
+Set('MarkerLine/hide', True)
+Set('MarkerFill/color', u'black')
+Set('MarkerFill/colorMap', u'blue-darkred')
+Set('MarkerFill/colorMapInvert', False)
+Set('ErrorBarLine/color', u'darkcyan')
+Set('ErrorBarLine/width', u'3pt')
+Set('ErrorBarLine/hide', True)
+Set('Label/posnHorz', u'right')
+Set('Label/posnVert', u'bottom')
+Set('Label/size', u'12pt')
+Set('Label/color', u'darkblue')
+Set('Label/bold', True)
+To('..')
+Add('xy', name=u'My_planets', autoadd=False)
+To(u'My_planets')
+Set('markerSize', u'4pt')
+Set('xData', u'myPs_m')
+Set('yData', u'myPs_r')
+Set('key', u'')
+Set('labels', u'myPs_name')
+Set('Color/points', [])
+Set('Color/min', 3.0)
+Set('Color/max', 3500.0)
+Set('Color/scaling', u'log')
+Set('MarkerLine/color', u'magenta')
+Set('MarkerLine/width', u'1pt')
+Set('MarkerFill/color', u'darkmagenta')
+Set('MarkerFill/colorMap', u'blank')
+Set('MarkerFill/colorMapInvert', False)
+Set('ErrorBarLine/color', u'magenta')
+Set('ErrorBarLine/width', u'2pt')
+Set('Label/posnHorz', u'left')
+Set('Label/posnVert', u'bottom')
+Set('Label/font', u'Times New Roman')
+Set('Label/size', u'12pt')
+Set('Label/color', u'darkmagenta')
+Set('Label/bold', True)
+To('..')
+Add('xy', name=u'Solar System', autoadd=False)
+To(u'Solar System')
+Set('markerSize', u'3pt')
+Set('xData', u'solar_m')
+Set('yData', u'solar_r')
+Set('labels', u'solar_name_it')
+Set('Color/points', [])
+Set('Color/min', 3.0)
+Set('Color/max', 3500.0)
+Set('Color/scaling', u'log')
+Set('PlotLine/hide', True)
+Set('MarkerLine/color', u'red')
+Set('MarkerLine/width', u'1pt')
+Set('MarkerFill/color', u'darkred')
+Set('MarkerFill/colorMap', u'blue')
+Set('MarkerFill/colorMapInvert', True)
+Set('ErrorBarLine/color', u'red')
+Set('ErrorBarLine/width', u'3pt')
+Set('Label/posnHorz', u'right')
+Set('Label/posnVert', u'centre')
+Set('Label/size', u'12pt')
+Set('Label/color', u'darkred')
+Set('Label/bold', True)
+To('..')
+Add('xy', name=u'P25', autoadd=False)
+To(u'P25')
+Set('markerSize', u'2pt')
+Set('xData', u'P25_m')
+Set('yData', u'P25_r')
+Set('hide', False)
+Set('key', u'')
+Set('labels', u'')
+Set('scalePoints', [])
+Set('Color/points', u'P20_ins')
+Set('Color/min', 3.0)
+Set('Color/max', 3500.0)
+Set('Color/scaling', u'log')
+Set('PlotLine/hide', True)
+Set('MarkerLine/width', u'0.5pt')
+Set('MarkerLine/transparency', 50)
+Set('MarkerLine/scaleLine', True)
+Set('MarkerLine/hide', False)
+Set('MarkerFill/transparency', 0)
+Set('MarkerFill/hide', False)
+Set('MarkerFill/colorMap', u'blue-darkred')
+Set('MarkerFill/colorMapInvert', False)
+Set('ErrorBarLine/width', u'1.0pt')
+Set('ErrorBarLine/transparency', 50)
+Set('ErrorBarLine/hide', False)
+Set('Label/posnVert', u'bottom')
+Set('Label/size', u'8pt')
+To('..')
+Add('xy', name=u'ELopez_1pcHHe', autoadd=False)
+To(u'ELopez_1pcHHe')
+Set('xData', u'1pcHHe_mass')
+Set('yData', u'1pcHHe_radius')
+Set('hide', False)
+Set('key', u'1% atmosfera gassosa')
+Set('labels', u'')
+Set('scalePoints', [])
+Set('Color/min', 3.0)
+Set('Color/max', 3500.0)
+Set('PlotLine/bezierJoin', True)
+Set('PlotLine/color', u'darkblue')
+Set('PlotLine/width', u'1.5pt')
+Set('PlotLine/style', u'dashed-fine')
+Set('PlotLine/transparency', 20)
+Set('MarkerLine/hide', True)
+Set('MarkerFill/hide', True)
+Set('ErrorBarLine/style', u'solid')
+Set('FillBelow/hide', True)
+Set('FillBelow/hideerror', False)
+Set('Label/size', u'12pt')
+To('..')
+Add('xy', name=u'ELopex_10pcHHE', autoadd=False)
+To(u'ELopex_10pcHHE')
+Set('xData', u'10pcHHe_mass')
+Set('yData', u'10pcHHe_radius')
+Set('hide', True)
+Set('key', u'10% H/He envelope')
+Set('Color/min', 3.0)
+Set('Color/max', 3500.0)
+Set('PlotLine/bezierJoin', True)
+Set('PlotLine/color', u'darkblue')
+Set('PlotLine/width', u'1.5pt')
+Set('PlotLine/style', u'dashed-fine')
+Set('PlotLine/transparency', 20)
+Set('PlotLine/hide', False)
+Set('MarkerLine/hide', True)
+Set('MarkerFill/hide', True)
+Set('ErrorBarLine/style', u'solid')
+Set('FillBelow/hide', True)
+Set('FillBelow/hideerror', False)
+Set('Label/size', u'12pt')
+To('..')
+Add('xy', name=u'ELopez_PureWater', autoadd=False)
+To(u'ELopez_PureWater')
+Set('xData', u'PureWater_mass')
+Set('yData', u'PureWater_radius')
+Set('hide', False)
+Set('key', u'100% acqua')
+Set('labels', u'')
+Set('Color/min', 3.0)
+Set('Color/max', 3500.0)
+Set('PlotLine/bezierJoin', True)
+Set('PlotLine/color', u'darkcyan')
+Set('PlotLine/width', u'1.5pt')
+Set('PlotLine/style', u'dashed-fine')
+Set('PlotLine/transparency', 20)
+Set('PlotLine/hide', False)
+Set('MarkerLine/hide', True)
+Set('MarkerFill/hide', True)
+Set('ErrorBarLine/style', u'solid')
+Set('FillBelow/hide', True)
+Set('FillBelow/hideerror', False)
+Set('Label/posnHorz', u'centre')
+Set('Label/size', u'12pt')
+To('..')
+Add('xy', name=u'ELopez_PureRock', autoadd=False)
+To(u'ELopez_PureRock')
+Set('xData', u'PureRock_mass')
+Set('yData', u'PureRock_radius')
+Set('hide', False)
+Set('key', u'100% roccia')
+Set('Color/min', 3.0)
+Set('Color/max', 3500.0)
+Set('PlotLine/bezierJoin', True)
+Set('PlotLine/color', u'red')
+Set('PlotLine/width', u'1.5pt')
+Set('PlotLine/style', u'dashed-fine')
+Set('PlotLine/transparency', 20)
+Set('MarkerLine/hide', True)
+Set('MarkerFill/hide', True)
+Set('ErrorBarLine/style', u'solid')
+Set('FillBelow/hide', True)
+Set('FillBelow/hideerror', False)
+Set('Label/size', u'12pt')
+To('..')
+Add('xy', name=u'ELopez_Earth', autoadd=False)
+To(u'ELopez_Earth')
+Set('xData', u'EarthComp_Mearth')
+Set('yData', u'EarthComp_Rearth')
+Set('hide', False)
+Set('key', u'Composizione terrestre')
+Set('Color/min', 3.0)
+Set('Color/max', 3500.0)
+Set('PlotLine/bezierJoin', True)
+Set('PlotLine/color', u'darkred')
+Set('PlotLine/width', u'1.5pt')
+Set('PlotLine/style', u'dashed-fine')
+Set('PlotLine/transparency', 20)
+Set('MarkerLine/hide', True)
+Set('MarkerFill/hide', True)
+Set('ErrorBarLine/style', u'solid')
+Set('FillBelow/hide', True)
+Set('FillBelow/hideerror', False)
+Set('Label/size', u'12pt')
+To('..')
+Add('xy', name=u'ELopex_MaxIron', autoadd=False)
+To(u'ELopex_MaxIron')
+Set('xData', u'MaxIron_mass')
+Set('yData', u'MaxIron_radius')
+Set('key', u'Fascia Collisionale')
+Set('Color/min', 3.0)
+Set('Color/max', 3500.0)
+Set('PlotLine/bezierJoin', True)
+Set('PlotLine/width', u'1.0pt')
+Set('PlotLine/style', u'solid')
+Set('MarkerLine/hide', True)
+Set('MarkerFill/hide', True)
+Set('FillBelow/hide', False)
+Set('FillBelow/transparency', 50)
+Set('FillBelow/hideerror', False)
+Set('Label/size', u'12pt')
+To('..')
+Add('fit', name='fit1', autoadd=False)
+To('fit1')
+Set('function', u'((((x+a)*x + b)*x+c)*x+d)*x + e')
+Set('values', {u'a': -49.293360985209006, u'c': -6229.6063136215, u'b': 855.1201266892691, u'e': -14692.189053612528, u'd': 17782.917710890073})
+Set('xData', u'PureRock_mass')
+Set('yData', u'PureRock_radius')
+To('..')
+Add('label', name='label1', autoadd=False)
+To('label1')
+Set('label', u'1% atmosfera gassosa')
+Set('xPos', [0.99])
+Set('yPos', [0.665])
+Set('alignHorz', u'right')
+Set('alignVert', u'centre')
+Set('angle', -9.0)
+Set('Text/size', u'12pt')
+Set('Text/color', u'darkblue')
+To('..')
+Add('label', name='label2', autoadd=False)
+To('label2')
+Set('label', u'100% roccia')
+Set('xPos', [0.99])
+Set('yPos', [0.55])
+Set('alignHorz', u'right')
+Set('alignVert', u'centre')
+Set('angle', -12.0)
+Set('Text/size', u'12pt')
+Set('Text/color', u'red')
+To('..')
+Add('label', name='label3', autoadd=False)
+To('label3')
+Set('label', u'Composizione terrestre')
+Set('xPos', [0.99])
+Set('yPos', [0.455])
+Set('alignHorz', u'right')
+Set('alignVert', u'centre')
+Set('angle', -12.0)
+Set('Text/size', u'12pt')
+Set('Text/color', u'darkred')
+To('..')
+Add('label', name='label4', autoadd=False)
+To('label4')
+Set('label', u'100% acqua')
+Set('xPos', [0.99])
+Set('yPos', [0.9225])
+Set('alignHorz', u'right')
+Set('alignVert', u'centre')
+Set('angle', -14.0)
+Set('Text/size', u'12pt')
+Set('Text/color', u'darkcyan')
+To('..')
+To('..')
+To('..')

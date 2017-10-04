@@ -1,32 +1,13 @@
 import numpy as np
 import matplotlib.ticker
 import matplotlib.pyplot as plt
+import pandas
 csfont = {'fontname':'Times New Roman'}
 
+data = pandas.read_csv('../Exoplanets_eu/exoplanet.eu_catalog.csv')
 
-data = np.genfromtxt(
-    '../NASA_data/defaults.csv',           # file name
-    skip_header=1,          # lines to skip at the top
-    skip_footer=0,          # lines to skip at the bottom
-    delimiter=',',          # column delimiter
-    dtype='float32',        # data type
-    filling_values=-0.0001,       # fill missing values with 0
-    #usecols = (0,2,3,5),    # columns to read
-    names=['pl_name','pl_orbper','pl_masse','pl_masseerr1','pl_masseerr2','pl_rade','pl_radeerr1','pl_radeerr2','st_mass','st_rad','st_teff','pl_ttvflag'])     # column names
-
-names = np.genfromtxt(
-    '../NASA_data/defaults.csv',           # file name
-    skip_header=1,          # lines to skip at the top
-    skip_footer=0,          # lines to skip at the bottom
-    delimiter=',',          # column delimiter
-    dtype=str,        # data type
-    filling_values=-1.000,       # fill missing values with 0
-    usecols = (0))    # columns to read
-
-
-sel = (data['pl_masse'] > 0.0) & (data['pl_orbper'] > 0.0) & (data['st_mass']>0.0) & (data['st_rad']>0.) & \
-    (np.abs(data['pl_masseerr1'])>0.01 ) & (np.abs(data['pl_masseerr2'])>0.01 ) & \
-    (np.abs(data['pl_masseerr1']/data['pl_masse'])<1.0 ) & (np.abs(data['pl_masseerr2']/data['pl_masse'])<1.0 )
+sel = (data['mass'] > 0.0) & (data['orbital_period'] > 0.0) & (data['star_mass']>0.0) & (data['star_radius']>0.) & \
+    (np.abs(data['mass_error_min']/data['mass'])<1.0 ) & (np.abs(data['mass_error_max']/data['mass'])<1.0 )
 
 G_grav = 6.67398e-11
 M_sun = 1.98892e30
@@ -38,18 +19,18 @@ AU_km = 1.4960 * 10 ** 8
 
 
 
-pl_names     = names[sel]
-pl_orbper    = data['pl_orbper'][sel]
-st_rad       = data['st_rad'][sel]
-st_teff      = data['st_teff'][sel]
-st_mass      = data['st_mass'][sel]
-pl_masse     = data['pl_masse'][sel]
-pl_masseerr1 = np.abs(data['pl_masseerr1'][sel])
-pl_masseerr2 = np.abs(data['pl_masseerr2'][sel])
-pl_rade      = data['pl_rade'][sel]
-pl_radeerr1  = np.abs(data['pl_radeerr1'][sel])
-pl_radeerr2  = np.abs(data['pl_radeerr2'][sel])
-pl_ttvflag  = data['pl_ttvflag'][sel]
+pl_names     = data['# name'][sel]
+pl_orbper    = data['orbital_period'][sel]
+st_rad       = data['star_radius'][sel]
+st_teff      = data['star_teff'][sel]
+st_mass      = data['star_mass'][sel]
+pl_masse     = data['mass'][sel]*317.83
+pl_masseerr1 = np.abs(data['mass_error_max'][sel])*317.83
+pl_masseerr2 = np.abs(data['mass_error_min'][sel])*317.83
+pl_rade      = data['radius'][sel]*11.209
+pl_radeerr1  = np.abs(data['radius_error_max'][sel])*11.209
+pl_radeerr2  = np.abs(data['radius_error_min'][sel])*11.209
+mass_detection_type  = data['mass_detection_type'][sel]
 
 a_smj_AU = np.power((Mu_sun * np.power(pl_orbper * seconds_in_day / (2 * np.pi), 2) / (AU_km ** 3.0)) * st_mass, 1.00 / 3.00)
 
@@ -124,4 +105,4 @@ ax1.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, pos: str
 ax1.set_ylabel('Radius [R$_{\oplus}$]')
 ax1.set_xlabel('Mass [M$_{\oplus}$]')
 
-plt.savefig('NASA_MR.pdf', bbox_inches='tight', dpi=300)
+plt.savefig('ExoEU_MR.pdf', bbox_inches='tight', dpi=300)
