@@ -67,4 +67,5 @@ properties_dict['define_alpha_density'] = False
 properties_dict['define_plot_USPP'] = False
 properties_dict['define_short_names'] = True
 properties_dict['no_color_scale'] = True
+
 make_plot(properties_dict)

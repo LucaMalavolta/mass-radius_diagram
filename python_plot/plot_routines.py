@@ -9,7 +9,10 @@ import matplotlib as mpl
 def start_up(parameter_dict):
     global insol_min, insol_max, color_map, color_map_backup, \
     xlims, ylims, xticks, colorbar_xvector, add_overplot, \
-    alpha_upper_limit, alpha_lower_limit, alpha_upper_value, alpha_lower_value
+    alpha_upper_limit, alpha_lower_limit, alpha_upper_value, alpha_lower_value, \
+    font_label, font_planet_name, font_my_planet, font_tracks, \
+    font_USP_name, font_Solar_name
+
 
     xticks = parameter_dict['xticks']
     xlims = parameter_dict['xlims']
@@ -26,6 +29,26 @@ def start_up(parameter_dict):
     color_map = parameter_dict['color_map']
     color_map_backup = parameter_dict['color_map']
 
+    font_label = 12
+    font_planet_name = 10
+    font_my_planet = 14
+    font_tracks = 12
+    font_USP_name = 12
+    font_Solar_name = 12
+
+    for key_name, key_val in parameter_dict.iteritems():
+        if key_name == 'font_label':
+            font_label = parameter_dict['font_label']
+        if key_name == 'font_planet_name':
+            font_planet_name = parameter_dict['font_planet_name']
+        if key_name == 'font_my_planet':
+            font_my_planet = parameter_dict['font_my_planet']
+        if key_name == 'font_tracks':
+            font_tracks = parameter_dict['font_tracks']
+        if key_name == 'font_USP_name':
+            font_USP_name = parameter_dict['font_USP_name']
+        if key_name == 'font_Solar_name':
+            font_Solar_name = parameter_dict['font_Solar_name']
 
 def text_slope_match_line(ax, xdata, ydata ,x_pos):
     global rotated_labels
@@ -173,6 +196,7 @@ def create_flags(properties_dict):
     markersize = 6
     z_offset = 0.0
 
+
     for key_name, key_val in properties_dict.iteritems():
         if key_name == 'define_thick_markers':
             define_thick_markers = properties_dict['define_thick_markers']
@@ -197,10 +221,13 @@ def create_flags(properties_dict):
         if key_name == 'mark_ttvs':
             mark_ttvs = properties_dict['mark_ttvs']
 
+
+
     if no_color_scale:
         color_map = mpl.cm.binary_r
     else:
         color_map = color_map_backup
+    matplotlib.rcParams.update({'font.size': font_label})
 
 
     if define_thick_markers:
@@ -432,7 +459,7 @@ def plot_lizeng_tracks():
         rotation, y_pos = text_slope_match_line(ax1, LZeng_tracks['Mearth'],LZeng_tracks[key_name], key_val['x_pos'])
         ax1.annotate(key_val['label'], xy=(key_val['x_pos'], y_pos), \
                          xytext=(0, 5), textcoords='offset points', ha='right', va='bottom', \
-                         color=color_noalpha, zorder=1000+z_offset, rotation=rotation, rotation_mode="anchor", fontsize=12, weight='bold')
+                         color=color_noalpha, zorder=1000+z_offset, rotation=rotation, rotation_mode="anchor", fontsize=font_tracks, weight='bold')
         if 'fill_below' in key_val:
             ax1.fill_between(LZeng_tracks['Mearth'],0, LZeng_tracks[key_name], color=color, alpha=0.15)
 
@@ -467,7 +494,7 @@ def plot_lizeng_tracks_alternative():
         ax1.annotate(key_val['label'], xy=(key_val['x_pos'], y_pos), \
                          xytext=(0, -6), textcoords='offset points', ha='right', va='top', \
                          color=color_noalpha, zorder=1000+z_offset, rotation=rotation, rotation_mode="anchor",
-                     fontsize=14, weight='bold')
+                     fontsize=font_tracks, weight='bold')
         if 'fill_below' in key_val:
             ax1.fill_between(LZeng_tracks['Mearth'],0, LZeng_tracks[key_name], color=color, alpha=0.15)
         if 'fill_between' in key_val:
@@ -524,7 +551,7 @@ def add_points_from_dataset():
             if pos*0.98 < xlims[0] or pos*1.02 > xlims[1] or ypt*0.98 < ylims[0] or ypt > ylims[1]: continue
             ax1.annotate(pl_name, xy=(pos, ypt),
                          xytext=(-5, 2), textcoords='offset points', ha='right', va='bottom',
-                         color=color, fontsize=10,  zorder=alpha_orig+add_overplot+0.5+z_offset, annotation_clip=True)
+                         color=color, fontsize=font_planet_name,  zorder=alpha_orig+add_overplot+0.5+z_offset, annotation_clip=True)
 
         if define_planet_names_usp:
             if pos*0.98 < xlims[0] or pos*1.02 > xlims[1] or ypt*0.98 < ylims[0] or ypt > ylims[1]: continue
@@ -533,31 +560,31 @@ def add_points_from_dataset():
             if pl_name=='K2-141 b':
                 ax1.annotate(pl_name, xy=(pos, ypt),
                              xytext=(4, -4), textcoords='offset points', ha='left', va='top',
-                             color=color, fontsize=14, zorder=alpha_orig + add_overplot + 0.5 + z_offset,
+                             color=color, fontsize=font_my_planet, zorder=alpha_orig + add_overplot + 0.5 + z_offset,
                              annotation_clip=True, bbox=bbox_props_mine)
 
             elif pl_name == 'HD 3167 b G17':
                 ax1.annotate(pl_name, xy=(pos, ypt),
                              xytext=(4, -4), textcoords='offset points', ha='left', va='top',
-                             color=color, fontsize=12, zorder=alpha_orig + add_overplot/2. + 0.5 + z_offset,
+                             color=color, fontsize=font_USP_name, zorder=alpha_orig + add_overplot/2. + 0.5 + z_offset,
                             annotation_clip=True, bbox=bbox_props)
 
             elif pl_name == 'HD 3167 b C17' or pl_name =='55 Cnc e':
                 ax1.annotate(pl_name, xy=(pos, ypt),
                              xytext=(-4, 4), textcoords='offset points', ha='right', va='bottom',
-                             color=color, fontsize=12, zorder=alpha_orig + add_overplot/2. + 0.5 + z_offset,
+                             color=color, fontsize=font_USP_name, zorder=alpha_orig + add_overplot/2. + 0.5 + z_offset,
                              annotation_clip=True, bbox=bbox_props)
 
             elif pl_name=='K2-131 b' or pl_name=='Kepler-10 b':
                 ax1.annotate(pl_name, xy=(pos, ypt),
                              xytext=(-4, -4), textcoords='offset points', ha='right', va='top',
-                             color=color, fontsize=12, zorder=alpha_orig + add_overplot/2. + 0.5 + z_offset,
+                             color=color, fontsize=font_USP_name, zorder=alpha_orig + add_overplot/2. + 0.5 + z_offset,
                              annotation_clip=True, bbox=bbox_props)
 
             else:
                 ax1.annotate(pl_name, xy=(pos, ypt),
                          xytext=(4, 4), textcoords='offset points', ha='left', va='bottom',
-                         color=color, fontsize=12,  zorder=alpha_orig+add_overplot/2.+0.5+z_offset, annotation_clip=True, bbox=bbox_props)
+                         color=color, fontsize=font_USP_name,  zorder=alpha_orig+add_overplot/2.+0.5+z_offset, annotation_clip=True, bbox=bbox_props)
 
 def add_solar_system():
     bbox_props = dict(boxstyle="square", fc="w", alpha=0.9, edgecolor='b', pad=0.1)
@@ -565,11 +592,11 @@ def add_solar_system():
     ax1.plot([0.815, 1.00],[0.949,1.00],'ob', markersize=markersize+4, marker='*', zorder= 10000+ z_offset)
     ax1.annotate('Earth', xy=(1.0, 1.0),
                  xytext=(5, 5), textcoords='offset points', ha='left', va='bottom',
-                 color='b', fontsize=12, zorder= 10000+ z_offset,
+                 color='b', fontsize=font_Solar_name, zorder= 10000+ z_offset,
                  annotation_clip=True, bbox=bbox_props)
     ax1.annotate('Venus', xy=(0.815, 0.949),
                  xytext=(5, 5), textcoords='offset points', ha='left', va='bottom',
-                 color='b', fontsize=12, zorder= 10000+ z_offset,
+                 color='b', fontsize=font_Solar_name, zorder= 10000+ z_offset,
                  annotation_clip=True, bbox=bbox_props)
 
 def save_fig(prefix_output_name):

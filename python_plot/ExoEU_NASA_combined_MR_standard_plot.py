@@ -18,9 +18,14 @@ def make_plot(properties_dict):
         'alpha_lower_value': 0.2,
         'insol_min': 1.0,
         'insol_max': 3000.0,
-        'colorbar_xvector': [1, 3, 10, 30, 100, 300, 1000, 3000],
+        'colorbar_xvector': [1, 3, 10, 30, 100, 300, 1000],
+        #'colorbar_xvector': [1, 3, 10, 30, 100, 300, 1000, 3000],
         'add_overplot': 0.0,
-        'color_map': cmocean.cm.thermal
+        'color_map': cmocean.cm.thermal,
+        'font_label': 24,
+        'font_planet_name': 10,
+        'font_tracks':18,
+        'font_Solar_name':18
     }
 
     if properties_dict['define_alpha_density']:
@@ -28,6 +33,9 @@ def make_plot(properties_dict):
         parameters_dict['alpha_lower_limit'] = 0.3
         parameters_dict['alpha_upper_value'] = 0.6
         parameters_dict['alpha_lower_value'] = 0.3
+
+
+
 
     start_up(parameters_dict)
 
@@ -44,7 +52,7 @@ def make_plot(properties_dict):
 
     insolation_scale()
     define_alpha_colors()
-    setup_plot()
+    setup_plot(12,8)
 
     add_points_from_dataset()
 
@@ -59,38 +67,20 @@ def make_plot(properties_dict):
     save_fig(prefix_output_name)
 
 
-
-
-properties_dict = {}
-properties_dict['define_thick_markers'] = False
-properties_dict['define_planet_names'] = False
-properties_dict['define_alpha_density'] = True
-properties_dict['define_plot_USPP'] = True
-properties_dict['define_short_names'] = True
-properties_dict['no_color_scale'] = True
-make_plot(properties_dict)
+#properties_dict['define_plot_USPP'] = False
 
 properties_dict = {}
 properties_dict['define_thick_markers'] = False
 properties_dict['define_planet_names'] = False
-properties_dict['define_alpha_density'] = True
-properties_dict['define_plot_USPP'] = True
+properties_dict['define_alpha_density'] = False
 properties_dict['define_short_names'] = True
 properties_dict['no_color_scale'] = True
 make_plot(properties_dict)
 
-properties_dict['define_thick_markers'] = False
-properties_dict['define_planet_names'] = False
-properties_dict['define_alpha_density'] = True
-properties_dict['define_plot_USPP'] = False
-properties_dict['define_short_names'] = True
-properties_dict['no_color_scale'] = True
-make_plot(properties_dict)
 
 properties_dict['define_thick_markers'] = False
 properties_dict['define_planet_names'] = True
-properties_dict['define_alpha_density'] = True
-properties_dict['define_plot_USPP'] = False
+properties_dict['define_alpha_density'] = False
 properties_dict['define_short_names'] = True
 properties_dict['no_color_scale'] = True
 make_plot(properties_dict)
@@ -100,33 +90,15 @@ make_plot(properties_dict)
 properties_dict = {}
 properties_dict['define_thick_markers'] = True
 properties_dict['define_planet_names'] = False
-properties_dict['define_alpha_density'] = True
-properties_dict['define_plot_USPP'] = True
+properties_dict['define_alpha_density'] = False
 properties_dict['define_short_names'] = True
-properties_dict['no_color_scale'] = True
+properties_dict['no_color_scale'] = False
 make_plot(properties_dict)
 
-properties_dict = {}
-properties_dict['define_thick_markers'] = True
-properties_dict['define_planet_names'] = False
-properties_dict['define_alpha_density'] = True
-properties_dict['define_plot_USPP'] = True
-properties_dict['define_short_names'] = True
-properties_dict['no_color_scale'] = True
-make_plot(properties_dict)
-
-properties_dict['define_thick_markers'] = True
-properties_dict['define_planet_names'] = False
-properties_dict['define_alpha_density'] = True
-properties_dict['define_plot_USPP'] = False
-properties_dict['define_short_names'] = True
-properties_dict['no_color_scale'] = True
-make_plot(properties_dict)
 
 properties_dict['define_thick_markers'] = True
 properties_dict['define_planet_names'] = True
-properties_dict['define_alpha_density'] = True
-properties_dict['define_plot_USPP'] = False
+properties_dict['define_alpha_density'] = False
 properties_dict['define_short_names'] = True
-properties_dict['no_color_scale'] = True
+properties_dict['no_color_scale'] = False
 make_plot(properties_dict)
