@@ -17,7 +17,7 @@ properties_dict['mark_ttvs'] = False
 This has been modified to accomodate USPp
 """
 parameters_dict = {
-    'xticks': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12],
+    'xticks': [1, 2, 3, 4, 5, 6, 7, 8, 9, 12],
     #'xlims': [0.9, 13.],
     #'ylims': [0.9, 2.2],
     #'xlims': [0.4, 30],
@@ -33,6 +33,10 @@ parameters_dict = {
     'colorbar_xvector': [1000, 2000, 3000, 4000, 5000, 6000],
     'add_overplot': 0.0,
     'color_map': cmocean.cm.thermal,
+    'font_label': 24,
+    'font_planet_name': 14,
+    'font_tracks':22,
+    'font_Solar_name':18
 }
 
 if properties_dict['define_alpha_density']:
@@ -61,7 +65,7 @@ data_combined = combine_catalogues()
 perform_selection(data_combined)
 
 define_alpha_colors()
-setup_plot(16,8)
+setup_plot(11,12)
 
 add_points_from_dataset()
 
@@ -86,7 +90,7 @@ insolation_scale(linear_in=True)
 define_alpha_colors()
 
 add_points_from_dataset()
-add_color_bar(axes_list=[0.1, 0.55, 0.02, 0.35])
+#add_color_bar(axes_list=[0.2, 0.55, 0.02, 0.35])
 
 plot_lizeng_tracks_alternative()
 

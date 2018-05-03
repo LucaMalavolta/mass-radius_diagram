@@ -430,7 +430,7 @@ def short_name_subtitutions():
         ' ':''
     }
 
-def plot_lizeng_tracks():
+def plot_lizeng_tracks(z_overcome=0):
     # adding the composition tracks
     LZeng_tracks = np.genfromtxt('../LZeng_tracks/Zeng2016_mrtable2.txt', skip_header=1, \
          names = ['Mearth','100_fe','75_fe','50_fe','30_fe','25_fe','20_fe','rocky','25_h2o','50_h2o','100_h2o','cold_h2_he','max_coll_strip'] )
@@ -448,6 +448,7 @@ def plot_lizeng_tracks():
     '50_h2o':     {'x_pos':x_pos, 'cmap':'winter', 'color':0.50, 'alpha':0.8, 'label':'50% H$_{2}$O'},
     '100_h2o':    {'x_pos':x_pos, 'cmap':'winter', 'color':0.00, 'alpha':0.8, 'label':'100% H$_{2}$O'},
     'cold_h2_he': {'x_pos':3.5, 'cmap':'winter', 'color':0.90, 'alpha':0.8, 'label':'Cold H$_{2}$/He'},
+    'cold_h2_he': {'x_pos':1.0, 'cmap':'winter', 'color':0.90, 'alpha':0.8, 'label':'Cold H$_{2}$/He'},
     'max_coll_strip': {'x_pos':x_pos, 'cmap':'binary', 'color':1.00, 'alpha':0.2, 'label':'', 'fill_below':True}
     }
 
@@ -455,15 +456,15 @@ def plot_lizeng_tracks():
         color_map = plt.get_cmap(key_val['cmap'])
         color = color_map(key_val['color'], alpha=key_val['alpha'])
         color_noalpha = color_map(key_val['color'], alpha=1.0)
-        line = ax1.plot(LZeng_tracks['Mearth'],LZeng_tracks[key_name],color=color, zorder=0+z_offset)
+        line = ax1.plot(LZeng_tracks['Mearth'],LZeng_tracks[key_name],color=color, zorder=0+z_offset+z_overcome)
         rotation, y_pos = text_slope_match_line(ax1, LZeng_tracks['Mearth'],LZeng_tracks[key_name], key_val['x_pos'])
         ax1.annotate(key_val['label'], xy=(key_val['x_pos'], y_pos), \
                          xytext=(0, 5), textcoords='offset points', ha='right', va='bottom', \
-                         color=color_noalpha, zorder=1000+z_offset, rotation=rotation, rotation_mode="anchor", fontsize=font_tracks, weight='bold')
+                         color=color_noalpha, zorder=1000+z_offset+z_overcome, rotation=rotation, rotation_mode="anchor", fontsize=font_tracks, weight='bold')
         if 'fill_below' in key_val:
             ax1.fill_between(LZeng_tracks['Mearth'],0, LZeng_tracks[key_name], color=color, alpha=0.15)
 
-def plot_lizeng_tracks_alternative():
+def plot_lizeng_tracks_alternative(z_overcome=0):
     # adding the composition tracks
     LZeng_tracks = np.genfromtxt('../LZeng_tracks/Zeng2016_mrtable2.txt', skip_header=1, \
          names = ['Mearth','100_fe','75_fe','50_fe','30_fe','25_fe','20_fe','rocky','25_h2o','50_h2o','100_h2o','cold_h2_he','max_coll_strip'] )
@@ -489,17 +490,17 @@ def plot_lizeng_tracks_alternative():
         color_map = plt.get_cmap(key_val['cmap'])
         color = color_map(key_val['color'], alpha=key_val['alpha'])
         color_noalpha = color_map(key_val['color'], alpha=1.0)
-        line = ax1.plot(LZeng_tracks['Mearth'],LZeng_tracks[key_name],color=color, zorder=0+z_offset)
+        line = ax1.plot(LZeng_tracks['Mearth'],LZeng_tracks[key_name],color=color, zorder=0+z_offset+z_overcome)
         rotation, y_pos = text_slope_match_line(ax1, LZeng_tracks['Mearth'],LZeng_tracks[key_name], key_val['x_pos'])
         ax1.annotate(key_val['label'], xy=(key_val['x_pos'], y_pos), \
                          xytext=(0, -6), textcoords='offset points', ha='right', va='top', \
-                         color=color_noalpha, zorder=1000+z_offset, rotation=rotation, rotation_mode="anchor",
+                         color=color_noalpha, zorder=1000+z_offset+z_overcome, rotation=rotation, rotation_mode="anchor",
                      fontsize=font_tracks, weight='bold')
         if 'fill_below' in key_val:
             ax1.fill_between(LZeng_tracks['Mearth'],0, LZeng_tracks[key_name], color=color, alpha=0.15)
         if 'fill_between' in key_val:
             ax1.fill_between(LZeng_tracks['Mearth'], LZeng_tracks[key_name]-0.01,LZeng_tracks[key_name]+0.01 ,
-                             color=color, zorder=0 + z_offset, alpha=0.5)
+                             color=color, zorder=0 + z_offset+z_overcome, alpha=0.5)
 
 
 def add_points_from_dataset():
