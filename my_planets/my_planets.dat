@@ -1,2 +1,4 @@
-descriptor name p m,+,- r,+,- d,+,- ins ttv
-"Kepler-19b"        9.286759        8.402470        1.540000        1.620000        2.209000        0.049000        0.049000        0.779507        0.151993        0.158990       19.946775       87.297856   1.0
+name orbital_period mass mass_error_max mass_error_min radius radius_error_max radius_error_min star_mass star_radius star_teff pl_ttvflag textbox_ha textbox_va upper_limit
+FAKE-1 b,2.108900,7.040000,0.630000,0.630000,1.453000,0.037000,0.021000,0.706000,0.702000,5125.000000,  0.0,left,top,0.000000 
+FAKE-1 c,13.314000,1.030000,1.040000,0.740000,1.141000,0.034000,0.036000,0.706000,0.702000,5125.000000,  0.0,left,top,1.000000 
+FAKE-1 d,4.450470,2.800000,1.130000,1.020000,2.234000,0.026000,0.013000,0.706000,0.702000,5125.000000,  1.0,left,top,0.000000 

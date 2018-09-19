@@ -1,26 +1,25 @@
 import numpy as np
 
-pl_names = np.asarray(['FAKE-1 b', 'FAKE-1 c', 'FAKE-1 d'])
-pl_orbper = np.asarray([2.1089, 13.314, 4.45047])
-pl_ttvflag = np.asarray([0.0, 0.0, 1.0])
-pl_upperlimit = np.asarray([False, True, False])
+pl_names = np.asarray(['FAKE-1 b', 'FAKE-1 d'])
+pl_orbper = np.asarray([2.1089, 4.45047])
+pl_ttvflag = np.asarray([0.0, 1.0])
+pl_upperlimit = np.asarray([False, False])
 
-st_rad =  np.asarray([0.702,0.702,0.702])
-st_mass = np.asarray([0.706,0.706,0.706])
-st_teff = np.asarray([5125, 5125,5125])
+st_rad =  np.asarray([0.702,0.702])
+st_mass = np.asarray([0.706,0.706])
+st_teff = np.asarray([5125,5125])
 
 #pl_masseerr1: +1 sgima
 #pl_masseerr2: -1 sgima
 
-pl_masse = np.asarray([ 7.04, 1.030, 2.80])
-pl_masseerr1 = np.asarray([0.630,1.040,1.13])
-pl_masseerr2 = np.asarray([0.630,0.740,1.02])
-pl_rade = np.asarray([1.453, 1.141, 2.234])
-pl_radeerr1 = np.asarray([0.037, 0.034, 0.026])
-pl_radeerr2 = np.asarray([0.021, 0.036, 0.013])
+pl_masse = np.asarray([ 5.04, 4.80])
+pl_masseerr1 = np.asarray([0.930, 1.93])
+pl_masseerr2 = np.asarray([0.930, 2.02])
+pl_rade = np.asarray([1.253,  2.834])
+pl_radeerr1 = np.asarray([0.067,  0.056])
+pl_radeerr2 = np.asarray([0.041,  0.033])
 
-
-fileout = open('my_planets.dat','w')
+fileout = open('other_planets.dat','w')
 fileout.write('name orbital_period mass mass_error_max mass_error_min radius radius_error_max radius_error_min star_mass star_radius star_teff pl_ttvflag textbox_ha textbox_va upper_limit\n')
 if np.size(pl_masse)>1:
     for nm, p, m, mp, mm, r, rp, rm, mass, rad, teff, ttv, upp_limit in \
