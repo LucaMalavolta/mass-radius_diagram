@@ -1,0 +1,10 @@
+# https://nssdc.gsfc.nasa.gov/planetary/factsheet/planet_table_ratio.html
+descriptor name name_it m r d p p_y
+"Mercury"  "Mercurio" 0.0553  0.383   0.984   88.0      0.241
+"Venus"    "Venere"   0.815   0.949   0.951   224.7     0.615
+"Earth"    "Terra"    1.000   1.000   1.000   365.2     1.000
+"Mars"     "Marte"    0.107   0.532   0.713   687.0     1.88
+"Jupiter"  "Giove"    317.8   11.21   0.240   4331.0    11.9
+"Saturn"   "Saturno"  95.2    9.45    0.125   10747.0   29.4
+"Uranus"   "Urano"    14.5    4.01    0.230   30589.0   83.7
+"Neptune"  "Nettuno"  17.1    3.88    0.297   59800.0   163.7

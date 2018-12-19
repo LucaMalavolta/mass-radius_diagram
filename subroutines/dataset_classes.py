@@ -1,5 +1,6 @@
 from constants import *
 
+<<<<<<< HEAD
 
 
 
@@ -20,6 +21,9 @@ class Dataset():
             if planet_name in TTV_list:
                 self.pl_ttvflag[planet_i] = 1.00
 
+=======
+class Dataset():
+>>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
     def compute_derived_parameters(self):
         self.insol_01 = self.pl_orbper*0.0
 
@@ -42,8 +46,11 @@ class Dataset():
         self.alphas_original = None
         self.colors = None
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
 class Dataset_Input(Dataset):
     def __init__(self, input_planets):
 
@@ -109,8 +116,11 @@ class Dataset_Input(Dataset):
         self.pl_ttvflag = data_input['pl_ttvflag']
         self.pl_upper_limit = data_input['pl_upper_limit']
 
+<<<<<<< HEAD
 
         self.fix_TTVs()
+=======
+>>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
         self.compute_derived_parameters()
 
 
@@ -214,7 +224,10 @@ class Dataset_Combined(Dataset):
         self.mass_detection_type = data_combined['mass_detection_type'][sel]
         self.pl_ttvflag = data_combined['pl_ttvflag'][sel]
 
+<<<<<<< HEAD
         self.fix_TTVs()
+=======
+>>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
         self.compute_derived_parameters()
 
 
@@ -255,5 +268,8 @@ class Dataset_ExoplanetEU(Dataset):
         self.mass_detection_type = data_eu['mass_detection_type'][sel].values
         self.pl_ttvflag = [True if ttv_flag == 'TTV' else False for ttv_flag in data_eu['mass_detection_type'][sel].values]
 
+<<<<<<< HEAD
         self.fix_TTVs()
+=======
+>>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
         self.compute_derived_parameters()
