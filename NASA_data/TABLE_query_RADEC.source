@@ -1,1 +1,0 @@
-wget "http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&format=csv&select=pl_name,pl_orbper,pl_masse,pl_masseerr1,pl_masseerr2,pl_rade,pl_radeerr1,pl_radeerr2,st_mass,st_rad,st_teff,pl_ttvflag,ra,dec&order=pl_bmassj" -O "defaults_radec.csv"
