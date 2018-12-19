@@ -4,10 +4,15 @@ from subroutines.dataset_classes import *
 #properties_dict['define_plot_USPP'] = False
 
 exo_dataset = Dataset_ExoplanetEU()
-my_planets = Dataset_Input('./my_planets/my_planets.dat')
-other_planets = Dataset_Input('./my_planets/other_planets.dat')
-MR_plot = MR_Plot()
+try:
+    my_planets = Dataset_Input('./my_planets/my_planets.dat')
+except:
+    my_planets = None
 
+try:
+    other_planets = Dataset_Input('./my_planets/other_planets.dat')
+except:
+    other_planets = None
 
 MR_plot.define_thick_markers = True
 MR_plot.define_planet_names = True
@@ -35,12 +40,12 @@ MR_plot.plot_size = [12,10]
 #MR_plot.font_Solar_name =14
 
 
-MR_plot.font_label = 18
-MR_plot.font_planet_name = 12
-MR_plot.font_tracks =18
-MR_plot.font_my_planet = 18
-MR_plot.font_USP_name = 18
-MR_plot.font_Solar_name =16
+#MR_plot.font_label = 18
+#MR_plot.font_planet_name = 12
+#MR_plot.font_tracks =18
+#MR_plot.font_my_planet = 18
+#MR_plot.font_USP_name = 18
+#MR_plot.font_Solar_name =16
 
 MR_plot.font_label = 22
 MR_plot.font_planet_name = 14
