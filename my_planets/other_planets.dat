@@ -1,3 +1,0 @@
-name orbital_period mass mass_error_max mass_error_min radius radius_error_max radius_error_min star_mass star_radius star_teff pl_ttvflag textbox_ha textbox_va upper_limit
-FAKE-1 b,2.108900,5.040000,0.930000,0.930000,1.253000,0.067000,0.041000,0.706000,0.702000,5125.000000,  0.0,left,top,0.000000 
-FAKE-1 d,4.450470,4.800000,1.930000,2.020000,2.834000,0.056000,0.033000,0.706000,0.702000,5125.000000,  1.0,left,top,0.000000 
