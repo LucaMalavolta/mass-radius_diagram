@@ -5,10 +5,8 @@ import matplotlib.pyplot as plt
 import pandas
 from matplotlib import rc
 import matplotlib as mpl
-<<<<<<< HEAD
 import cmocean
-=======
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
+
 
 G_grav = 6.67398e-11
 M_sun = 1.98892e30

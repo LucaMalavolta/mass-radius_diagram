@@ -1,35 +1,4 @@
-from constants import *
-
-<<<<<<< HEAD
-
-=======
-def text_slope_match_line(ax, xdata, ydata ,x_pos):
-
-    # find the slope
-
-    ind = np.argmin(np.abs(xdata-x_pos))
-
-    x1 = xdata[ind-1]
-    x2 = xdata[ind+1]
-    y1 = ydata[ind-1]
-    y2 = ydata[ind+1]
-
-    y_pos = y1 + (x_pos-x1)*(y2-y1)/(x2-x1)
-
-    p1 = np.array((x1, y1))
-    p2 = np.array((x2, y2))
-
-    # get the line's data transform
-    #ax = ax.get_axes()
-
-    sp1 = ax.transData.transform_point(p1)
-    sp2 = ax.transData.transform_point(p2)
-
-    rise = (sp2[1] - sp1[1])
-    run = (sp2[0] - sp1[0])
-
-    return math.degrees(math.atan(rise/run)), y_pos
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
+from subroutines.constants import *
 
 def transform_log_colorscale(val, vmin, vmax):
     return(np.log10(val)-np.log10(vmin))/(np.log10(vmax)-np.log10(vmin))
@@ -46,10 +15,8 @@ class MR_Plot():
         self.yticks = [0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4,]
         self.xlims = [0.4, 30]
         self.ylims = [0.8, 4.3]
-<<<<<<< HEAD
         self.xy_labels = [19.0, 4.2]
-=======
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
+
         self.define_alpha_density = False
         self.alpha_upper_limit = 0.8
         self.alpha_lower_limit = 0.1
@@ -95,11 +62,7 @@ class MR_Plot():
         self.logM = True
         self.logR = False
         self.add_lzeng_tracks = True
-<<<<<<< HEAD
         self.add_elopez_tracks = False
-=======
-        self.use_elopez_tracks = False
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
 
         self.plot_size = [12,10]
 
@@ -119,20 +82,15 @@ class MR_Plot():
             ' ':''
         }
 
-<<<<<<< HEAD
         self.default_plot_parameters = {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.00, 'alpha':0.8, 'linestyle':'-', 'label':'100% Fe'}
 
         self.tracks_on_top = False
 
-=======
-        self.lzeng_tracks_on_top = False
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
         self.lzeng_tracks = np.genfromtxt('./LZeng_tracks/Zeng2016_mrtable2.txt', skip_header=1, \
          names = ['Mearth','100_fe','75_fe','50_fe','30_fe','25_fe','20_fe','rocky','25_h2o','50_h2o','100_h2o','cold_h2_he','max_coll_strip'] )
 
         self.lzeng_plot_list = ['100_fe','75_fe','50_fe','25_fe','rocky','25_h2o','50_h2o','100_h2o','cold_h2_he','max_coll_strip']
         self.lzeng_plot_parameters = {
-<<<<<<< HEAD
             '100_fe':         {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.00, 'alpha':0.8, 'linestyle':'-', 'label':'100% Fe'},
             '75_fe':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.25, 'alpha':0.8, 'linestyle':'-', 'label':'75% Fe'},
             '50_fe':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.50, 'alpha':0.8, 'linestyle':'-', 'label':'50% Fe'},
@@ -159,24 +117,6 @@ class MR_Plot():
         self.fulton_gap_on_top = False
         self.add_fulton_gap = False
         self.fulton_gap_parameters = {'x_pos':None, 'y_pos': None, 'rotation':None, 'cmap':'Blues', 'color':0.70, 'alpha':0.2, 'label':'Fulton gap'}
-=======
-            '100_fe': {'x_pos':0.0, 'cmap':'gist_heat', 'color':0.00, 'alpha':0.8, 'linestyle':'-', 'label':'100% Fe'},
-            '75_fe':  {'x_pos':0.0, 'cmap':'gist_heat', 'color':0.25, 'alpha':0.8, 'linestyle':'-', 'label':'75% Fe'},
-            '50_fe':  {'x_pos':0.0, 'cmap':'gist_heat', 'color':0.50, 'alpha':0.8, 'linestyle':'-', 'label':'50% Fe'},
-            '30_fe':  {'x_pos':0.0, 'cmap':'gist_heat', 'color':0.70, 'alpha':0.8, 'linestyle':'-', 'label':'30% Fe'},
-            '25_fe':  {'x_pos':0.0, 'cmap':'gist_heat', 'color':0.75, 'alpha':0.8, 'linestyle':'-', 'label':'25% Fe'},
-            '20_fe':  {'x_pos':0.0, 'cmap':'gist_heat', 'color':0.80, 'alpha':0.8, 'linestyle':'-', 'label':'20% Fe'},
-            'rocky':  {'x_pos':0.0, 'cmap':'Greens', 'color':0.50, 'alpha':0.8, 'linestyle':'-', 'label':'Rocky'},
-            '25_h2o':     {'x_pos':0.0, 'cmap':'winter', 'color':0.75, 'alpha':0.8, 'linestyle':'-', 'label':'25% H$_{2}$O'},
-            '50_h2o':     {'x_pos':0.0, 'cmap':'winter', 'color':0.50, 'alpha':0.8, 'linestyle':'-', 'label':'50% H$_{2}$O'},
-            '100_h2o':    {'x_pos':0.0, 'cmap':'winter', 'color':0.00, 'alpha':0.8, 'linestyle':'-', 'label':'100% H$_{2}$O'},
-            'cold_h2_he': {'x_pos':0.0, 'cmap':'winter', 'color':0.90, 'alpha':0.8, 'linestyle':'-', 'label':'Cold H$_{2}$/He'},
-            'max_coll_strip': {'x_pos':0.0, 'cmap':'binary', 'color':1.00, 'alpha':0.2, 'linestyle':'-', 'label':'', 'fill_below':True}
-        }
-
-        self.add_fulton_gap = False
-        self.fulton_gap_parameters = {'x_pos':0.0, 'cmap':'Blues', 'color':0.70, 'alpha':0.2, 'label':'Fulton gap'}
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
         self.fulton_gap = [1.7, 0.2]
         self.fulton_gap_shaded = True
         self.fulton_label_position = ['bottom', 'left']
@@ -185,6 +125,8 @@ class MR_Plot():
 
         self.colorbar_axes_list=[0.10, 0.65, 0.03, 0.30]
         self.colorbar_ticks_position = 'right'
+
+        self.fp_foplus_spaces = '   '
 
         csfont = {'fontname':'Times New Roman'}
         matplotlib.rc('font',**{'family':'serif','serif':['Times New Roman']})
@@ -226,11 +168,10 @@ class MR_Plot():
             self.plot_color_bar()
         if self.add_lzeng_tracks:
             self.plot_lzeng_tracks()
-<<<<<<< HEAD
+
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
-=======
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
+
         if self.add_fulton_gap:
             self.plot_fulton_gap()
         self.add_points_from_dataset(dataset)
@@ -251,11 +192,10 @@ class MR_Plot():
             self.plot_color_bar()
         if self.add_lzeng_tracks:
             self.plot_lzeng_tracks()
-<<<<<<< HEAD
+
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
-=======
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
+
         if self.add_fulton_gap:
             self.plot_fulton_gap()
 
@@ -285,11 +225,10 @@ class MR_Plot():
             self.plot_color_bar()
         if self.add_lzeng_tracks:
             self.plot_lzeng_tracks()
-<<<<<<< HEAD
+
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
-=======
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
+
         if self.add_fulton_gap:
             self.plot_fulton_gap()
 
@@ -375,18 +314,12 @@ class MR_Plot():
 
     def plot_fulton_gap(self):
 
-<<<<<<< HEAD
         if  self.fulton_gap_on_top:
-=======
-        if  self.lzeng_tracks_on_top:
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
             fulton_z_order = self.z_offset + 1000.0
         else:
             fulton_z_order = self.z_offset
 
         #self.ax1.fill_between(self.fulton_gap_x, self.fulton_gap_y-self.fulton_gap[1], self.fulton_gap_y+self.fulton_gap[1], alpha=0.3)
-
-<<<<<<< HEAD
         xytext = [0, 0]
 
         key_val = self.fulton_gap_parameters #shortcut
@@ -423,15 +356,6 @@ class MR_Plot():
             rotation = key_val['rotation']
         else:
             rotation = self.text_slope_match_line(self.ax1, self.fulton_gap_x, y_axis, x_pos)
-=======
-        key_val = self.fulton_gap_parameters #shortcut
-        if key_val['x_pos'] == 0.0:
-
-            if 'left' in self.fulton_label_position:
-                key_val['x_pos'] = self.xlims[0]
-            else:
-                key_val['x_pos'] = self.xlims[1]
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
 
         color_map = plt.get_cmap(key_val['cmap'])
         color = color_map(key_val['color'], alpha=key_val['alpha'])
@@ -442,42 +366,10 @@ class MR_Plot():
         else:
             self.ax1.fill_between(self.fulton_gap_x, self.fulton_gap_y-self.fulton_gap[1], self.fulton_gap_y+self.fulton_gap[1], color=color, zorder=0)
 
-<<<<<<< HEAD
         self.ax1.annotate(key_val['label'], xy=(x_pos, y_pos), \
                          xytext=(xytext[0], xytext[1]), textcoords='offset points', ha=ha, va=va, \
                          color=color_noalpha, zorder=1000+fulton_z_order, rotation=rotation, rotation_mode="anchor",
                      fontsize=self.font_tracks, weight='bold')
-
-=======
-
-        if ('left' in self.fulton_label_position) and ('top' in self.fulton_label_position):
-            rotation, y_pos = text_slope_match_line(self.ax1, self.fulton_gap_x,self.fulton_gap_y+self.fulton_gap[1], key_val['x_pos'])
-            self.ax1.annotate(key_val['label'], xy=(key_val['x_pos'], y_pos), \
-                             xytext=(3, 3), textcoords='offset points', ha='left', va='bottom', \
-                             color=color_noalpha, zorder=1000+fulton_z_order, rotation=rotation, rotation_mode="anchor",
-                         fontsize=self.font_tracks, weight='bold')
-
-        if ('left' in self.fulton_label_position) and ('bottom' in self.fulton_label_position):
-            rotation, y_pos = text_slope_match_line(self.ax1, self.fulton_gap_x,self.fulton_gap_y-self.fulton_gap[1], key_val['x_pos'])
-            self.ax1.annotate(key_val['label'], xy=(key_val['x_pos'], y_pos), \
-                             xytext=(3, -6), textcoords='offset points', ha='left', va='top', \
-                             color=color_noalpha, zorder=1000+fulton_z_order, rotation=rotation, rotation_mode="anchor",
-                         fontsize=self.font_tracks, weight='bold')
-
-        if ('right' in self.fulton_label_position) and ('bottom' in self.fulton_label_position):
-            rotation, y_pos = text_slope_match_line(self.ax1, self.fulton_gap_x,self.fulton_gap_y-self.fulton_gap[1], key_val['x_pos'])
-            self.ax1.annotate(key_val['label'], xy=(key_val['x_pos'], y_pos), \
-                             xytext=(-3, -6), textcoords='offset points', ha='right', va='top', \
-                             color=color_noalpha, zorder=1000+fulton_z_order, rotation=rotation, rotation_mode="anchor",
-                         fontsize=self.font_tracks, weight='bold')
-
-        if ('right' in self.fulton_label_position) and ('top' in self.fulton_label_position):
-            rotation, y_pos = text_slope_match_line(self.ax1, self.fulton_gap_x,self.fulton_gap_y+self.fulton_gap[1], key_val['x_pos'])
-            self.ax1.annotate(key_val['label'], xy=(key_val['x_pos'], y_pos), \
-                             xytext=(-3, 3), textcoords='offset points', ha='right', va='bottom', \
-                             color=color_noalpha, zorder=1000+fulton_z_order, rotation=rotation, rotation_mode="anchor",
-                         fontsize=self.font_tracks, weight='bold')
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
 
     def shade_fulton_gap(self, key_val, color):
 
@@ -509,13 +401,11 @@ class MR_Plot():
 
         ax2.yaxis.set_ticks_position(self.colorbar_ticks_position)
         if self.colorbar_ticks_position == 'left':
-            ax2.set_title('   F$_{\mathrm{p}}$/F$_{\oplus}$')
+            ax2.set_title(self.fp_foplus_spaces + 'F$_{\mathrm{p}}$/F$_{\oplus}$')
         else:
-            ax2.set_title('F$_{\mathrm{p}}$/F$_{\oplus}$   ')
+            ax2.set_title('F$_{\mathrm{p}}$/F$_{\oplus}$' + self.fp_foplus_spaces)
 
         cb1.ax.set_yticklabels(self.colorbar_xvector)
-
-<<<<<<< HEAD
 
     def plot_lzeng_tracks(self):
         for key_name in self.lzeng_plot_list:
@@ -540,7 +430,7 @@ class MR_Plot():
             mass = tracks[:,0]
             radius = tracks[:,1]
             self.add_tracks(mass, radius, key_val)
-            print 'Added additional track: ', track_filename
+            print('Added additional track: ', track_filename)
 
     def add_tracks(self, mass, radius, key_val=None):
 
@@ -587,34 +477,20 @@ class MR_Plot():
                     rotation = self.text_slope_match_line(self.ax1, mass, radius, x_pos)
 
             except:
-                print key_val['label'] + " composition track outside the boundaries of the plot"
+                print(key_val['label'] + " composition track outside the boundaries of the plot")
                 return
 
             bbox_props = dict(boxstyle="square", fc="w", alpha=0.8, edgecolor='w', pad=0.0)
-=======
-    def plot_lzeng_tracks(self):
-        if  self.lzeng_tracks_on_top:
-            lzeng_z_order = self.z_offset + 1000.0
-        else:
-            lzeng_z_order = self.z_offset
-
-        for key_name in self.lzeng_plot_list:
-            key_val = self.lzeng_plot_parameters[key_name]
-
-            if key_val['x_pos'] == 0.0:
-                xpos_sel = (self.lzeng_tracks[key_name]<self.ylims[1]) & (self.lzeng_tracks['Mearth']<self.xlims[1])
-                key_val['x_pos'] = np.max(self.lzeng_tracks['Mearth'][xpos_sel])*0.95
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
 
             color_map = plt.get_cmap(key_val['cmap'])
             color = color_map(key_val['color'], alpha=key_val['alpha'])
             color_noalpha = color_map(key_val['color'], alpha=1.0)
-<<<<<<< HEAD
+
             line = self.ax1.plot(mass, radius, color=color, zorder=0+z_order, ls=key_val['linestyle'])
 
 
 
-            print '   Track: ', key_val['label'], ' x_pos: ', x_pos, ' y_pos: ', y_pos, ' rotation: ', rotation
+            print('   Track: ', key_val['label'], ' x_pos: ', x_pos, ' y_pos: ', y_pos, ' rotation: ', rotation)
 
 
             if key_val['use_box']:
@@ -632,25 +508,10 @@ class MR_Plot():
             if 'fill_between' in key_val:
                 self.ax1.fill_between(mass, radius-0.01,radius+0.01, color=color, zorder=0 + z_order, alpha=0.5)
 
-=======
-            line = self.ax1.plot(self.lzeng_tracks['Mearth'],self.lzeng_tracks[key_name],color=color, zorder=0+lzeng_z_order, ls=key_val['linestyle'])
-            rotation, y_pos = text_slope_match_line(self.ax1, self.lzeng_tracks['Mearth'],self.lzeng_tracks[key_name], key_val['x_pos'])
-            self.ax1.annotate(key_val['label'], xy=(key_val['x_pos'], y_pos), \
-                             xytext=(0, -6), textcoords='offset points', ha='right', va='top', \
-                             color=color_noalpha, zorder=1000+lzeng_z_order, rotation=rotation, rotation_mode="anchor",
-                         fontsize=self.font_tracks, weight='bold')
-            if 'fill_below' in key_val:
-                self.ax1.fill_between(self.lzeng_tracks['Mearth'],0, self.lzeng_tracks[key_name], color=color, alpha=0.15)
-            if 'fill_between' in key_val:
-                self.ax1.fill_between(self.lzeng_tracks['Mearth'], self.lzeng_tracks[key_name]-0.01,self.lzeng_tracks[key_name]+0.01 ,
-                                 color=color, zorder=0 + lzeng_z_order, alpha=0.5)
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
-
-
     def add_points_from_dataset(self, dataset):
 
         n_planets = len(dataset.pl_mass)
-        for ind in xrange(0, n_planets):
+        for ind in range(0, n_planets):
 
             pos = dataset.pl_mass[ind]
             ypt = dataset.pl_radius[ind]
@@ -735,10 +596,10 @@ class MR_Plot():
     def add_USP_planets(self, dataset):
 
         if not self.skip_plot_USPP:
-            print 'you should activate skip_plot_USPP to avoid a mess of points'
+            print('you should activate skip_plot_USPP to avoid a mess of points')
 
         n_planets = len(dataset.pl_mass)
-        for ind in xrange(0, n_planets):
+        for ind in range(0, n_planets):
 
             pos = dataset.pl_mass[ind]
             ypt = dataset.pl_radius[ind]
@@ -747,11 +608,8 @@ class MR_Plot():
             r_err1 = dataset.pl_radius_error_max[ind]
             r_err2 = dataset.pl_radius_error_min[ind]
             color = dataset.colors[ind]
-<<<<<<< HEAD
             alpha_orig = dataset.alphas_original[ind] + 10
-=======
-            alpha_orig = dataset.alphas_original[ind]
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
+
 
             pl_name = dataset.pl_names[ind]
             #pl_name_original = dataset.pl_names[ind]
@@ -807,11 +665,7 @@ class MR_Plot():
                 if pl_name=='K2-141 b':
                     self.ax1.annotate(pl_name, xy=(pos, ypt),
                                  xytext=(4, -4), textcoords='offset points', ha='left', va='top',
-<<<<<<< HEAD
                                  color='k', fontsize=self.font_USP_name, zorder=alpha_orig + self.add_overplot/2. + 0.5 + self.z_offset,
-=======
-                                 color='k', fontsize=self.font_USP_name, zorder=alpha_orig + self.add_overplot + 0.5 + self.z_offset,
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
                                  annotation_clip=True, bbox=bbox_props)
 
                 elif pl_name == 'HD 3167 b G17':
@@ -839,14 +693,9 @@ class MR_Plot():
 
 
     def add_my_planets(self, dataset):
-<<<<<<< HEAD
         z_order = self.add_overplot+self.z_offset+2000.00
-=======
-        z_order = 1000.0+self.add_overplot+self.z_offset+1000.00
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
-
         n_planets = len(dataset.pl_mass)
-        for ind in xrange(0, n_planets):
+        for ind in range(0, n_planets):
 
             pos = dataset.pl_mass[ind]
             ypt = dataset.pl_radius[ind]
@@ -877,11 +726,7 @@ class MR_Plot():
 
             if pl_upper_limit:
                 color_bar = self.color_map(insol01_val, alpha=0.5)
-<<<<<<< HEAD
                 self.ax1.errorbar(0.0, ypt, xerr=pos + m_err1, color=color_bar, zorder=z_order, lw=4, xlolims=True, capsize=5)
-=======
-                self.ax1.errorbar(self.xlims[0], ypt, xerr=pos + m_err1, color=color_bar, zorder=z_order, lw=4, xlolims=True, capsize=5)
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
                 self.ax1.errorbar(pos, ypt, yerr=([r_err2], [r_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize*1.5, lw=2)
                 #self.ax1.plot(pos, ypt, color='white', zorder=z_order+0.2, marker=marker_point, mfc='white', mec='k', mew = 0 , markersize=self.markersize*2, lw=0)
                 #self.ax1.plot(pos, ypt, color=color_mod, zorder=z_order+0.3, marker=marker_point, mfc=color_bar, mec='k', mew = 2 , markersize=self.markersize*2, lw=4)
@@ -917,7 +762,7 @@ class MR_Plot():
 
 
         n_planets = len(dataset.pl_mass)
-        for ind in xrange(0, n_planets):
+        for ind in range(0, n_planets):
 
             pos = dataset.pl_mass[ind]
             ypt = dataset.pl_radius[ind]
@@ -947,16 +792,11 @@ class MR_Plot():
 
             color_mod = self.color_map(insol01_val, alpha=alpha)
 
-<<<<<<< HEAD
             p1 = self.ax1.errorbar(pos, ypt, xerr=([m_err2], [m_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize, lw=3)#, ls='-.')
             p1[-1][0].set_linestyle('dashed')
 
             p2 = self.ax1.errorbar(pos, ypt, yerr=([r_err2], [r_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize, lw=3)#, linestyle='dashed')
             p2[-1][0].set_linestyle('dashed')
-=======
-            self.ax1.errorbar(pos, ypt, xerr=([m_err2], [m_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize, lw=3, ls='-.')
-            self.ax1.errorbar(pos, ypt, yerr=([r_err2], [r_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize, lw=3, linestyle='dashed')
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
 
             self.ax1.plot(pos, ypt, color=color_mod, zorder=z_order+0.3, marker=marker_point, mfc=color_mod, mec='k', mew = 1 , markersize=self.markersize+1, lw=2)
 
@@ -977,11 +817,7 @@ class MR_Plot():
 
             self.ax1.annotate(pl_name, xy=(pos, ypt),
                 xytext=xytext, textcoords='offset points', ha=bbox_ha, va=bbox_va,
-<<<<<<< HEAD
                 color='k', fontsize=(self.font_my_planet + self.font_planet_name)/2., zorder=alpha_orig + self.add_overplot + 0.5 + self.z_offset,
-=======
-                color='k', fontsize=self.font_planet_name, zorder=alpha_orig + self.add_overplot + 0.5 + self.z_offset,
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
                 annotation_clip=True, bbox=bbox_props)
 
     def add_solar_system(self):
@@ -1010,11 +846,10 @@ class MR_Plot():
                                     + self.name_alpha_density \
                                     + self.name_plot_USPP \
                                     + '.pdf'
-        print 'OUTPUT plot:  ', output_name
+        print('OUTPUT plot:  ', output_name)
 
         plt.savefig(output_name, bbox_inches='tight')
         plt.close()
-<<<<<<< HEAD
 
     def interpolate_line_value(self, mass, radius, x_pos=None, y_pos=None,
         default_position = 'top_right'):
@@ -1089,5 +924,3 @@ class MR_Plot():
         run = (sp2[0] - sp1[0])
 
         return math.degrees(math.atan(rise/run))
-=======
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211

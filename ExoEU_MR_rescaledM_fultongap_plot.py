@@ -32,12 +32,14 @@ except:
 
 MR_plot = MR_rescaledM_plot()
 
+MR_plot.fp_foplus_spaces = '    ' #Manually increase the distance between the Fp_Foplus label and the colorbar tick labels
+
 MR_plot.colorbar_ticks_position = 'left'
 
-MR_plot.font_label = 22
+MR_plot.font_label = 24
 MR_plot.font_planet_name = 12
 MR_plot.font_tracks =18
-MR_plot.font_my_planet = 18
+MR_plot.font_my_planet = 20
 MR_plot.font_USP_name = 18
 MR_plot.font_Solar_name =18
 MR_plot.prefix_output_name = './plots/ExoEU_MR_rescaledM_fulton'
@@ -86,7 +88,7 @@ MR_plot.yticks = [0.5, 0.6, 0.8, 1.0, 1.2, 1.6, 2.0 ]
 
 #MR_plot.colorbar_axes_list=[0.10, 0.58, 0.03, 0.40]
 #MR_plot.colorbar_axes_list=[0.11, 0.65, 0.03, 0.40]
-MR_plot.colorbar_axes_list=[0.89, 0.51, 0.03, 0.40]
+MR_plot.colorbar_axes_list=[0.87, 0.50, 0.03, 0.40]
 
 MR_plot.add_lzeng_tracks = True
 
@@ -120,7 +122,6 @@ else:
         MR_plot.make_plot_with_mine_and_other_planets(exo_dataset, my_planets, other_planets)
 
 
-"""
 plot_parameters = MR_plot.default_plot_parameters.copy()
 plot_parameters['cmap']='winter'
 plot_parameters['color']=0.60
@@ -131,7 +132,6 @@ plot_parameters['x_pos'] = 0.01
 plot_parameters['y_pos'] = 2.40
 plot_parameters['rotation'] = -80.0
 MR_plot.add_track_from_files('LiZeng_private_tracks/interpolated_halfh2o01h300K1mbar.dat', plot_parameters)
-"""
 
 
 

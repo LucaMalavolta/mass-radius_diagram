@@ -30,10 +30,8 @@ def text_slope_match_line_alternative(ax, xdata, ydata, y_pos):
 
 class MR_rescaledM_plot(MR_Plot):
 
-<<<<<<< HEAD
-    #self.colorbar_axes_list=[0.90, 0.55, 0.03, 0.35]
-=======
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
+
+    #colorbar_axes_list=[0.90, 0.55, 0.03, 0.35]
 
     def rescale_mass(self):
         M = self.lzeng_tracks['Mearth']
@@ -49,7 +47,6 @@ class MR_rescaledM_plot(MR_Plot):
         #self.add_points_from_dataset(dataset)
         return dataset
 
-<<<<<<< HEAD
     def plot_lzeng_tracks(self):
         for key_name in self.lzeng_plot_list:
             #key_val = self.lzeng_plot_parameters[key_name]
@@ -141,58 +138,6 @@ class MR_rescaledM_plot(MR_Plot):
                          xytext=(-2, 2), textcoords='offset points', ha='left', va='bottom', \
                          color=color_noalpha, zorder=1000+z_order, rotation=rotation, rotation_mode="anchor",
                      fontsize=self.font_tracks, weight='bold')
-=======
-
-    def plot_lzeng_tracks(self):
-
-        if  self.lzeng_tracks_on_top:
-            lzeng_z_order = self.z_offset + 1000.0
-        else:
-            lzeng_z_order = self.z_offset
-
-        for key_name in self.lzeng_plot_list:
-            key_val = self.lzeng_plot_parameters[key_name]
-
-            x_rescaled = self.lzeng_tracks['Mearth']/10**np.polynomial.chebyshev.chebval(self.lzeng_tracks[key_name], self.reference_density_fit)
-            fit_coeff = np.polynomial.chebyshev.chebfit(self.lzeng_tracks[key_name], x_rescaled, 3)
-
-            R_range = np.arange(0.1, 5.0, 0.01)
-            M_range = np.polynomial.chebyshev.chebval(R_range, fit_coeff)
-
-
-
-            #if key_val['x_pos'] == 0.0:
-            ypos_sel = np.where(R_range > self.ylims[0])[0][0]
-            key_val['x_pos'] = M_range[ypos_sel]
-            y_pos = R_range[ypos_sel] * 1.00
-
-
-            color_map = plt.get_cmap(key_val['cmap'])
-            color = color_map(key_val['color'], alpha=key_val['alpha'])
-            color_noalpha = color_map(key_val['color'], alpha=1.0)
-
-            if key_name != 'rocky':
-                line = self.ax1.plot(M_range,R_range, color=color, zorder=0+lzeng_z_order, ls=key_val['linestyle'])
-            else:
-                self.ax1.axvline(1.0, c=color, ls=key_val['linestyle'], zorder=0+lzeng_z_order,)
-
-
-            rotation = text_slope_match_line_alternative(self.ax1, M_range, R_range, y_pos)
-
-            if rotation < 0.0:
-                rotation += 180.0
-
-            #if key_name == 'rocky':
-            #    color_noalpha = 'r'
-
-            self.ax1.annotate(key_val['label'], xy=(key_val['x_pos'], y_pos), \
-                             xytext=(-2, 2), textcoords='offset points', ha='left', va='bottom', \
-                             color=color_noalpha, zorder=1000+lzeng_z_order, rotation=rotation, rotation_mode="anchor",
-                         fontsize=self.font_tracks, weight='bold')
-
-
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
-
 
     def add_solar_system_rescaled(self):
         bbox_props = dict(boxstyle="square", fc="w", alpha=0.9, edgecolor='b', pad=0.1)
@@ -224,11 +169,10 @@ class MR_rescaledM_plot(MR_Plot):
 
         if self.add_lzeng_tracks:
             self.plot_lzeng_tracks()
-<<<<<<< HEAD
+
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
-=======
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
+
         if self.add_color_bar:
             self.plot_color_bar()
         if self.add_fulton_gap:
@@ -245,10 +189,6 @@ class MR_rescaledM_plot(MR_Plot):
         self.insolation_scale(my_planets)
         self.define_alpha_colors(my_planets)
 
-<<<<<<< HEAD
-=======
-        self.colorbar_axes_list=[0.90, 0.55, 0.03, 0.35]
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
 
         self.setup_plot()
 
@@ -262,11 +202,10 @@ class MR_rescaledM_plot(MR_Plot):
 
         if self.add_lzeng_tracks:
             self.plot_lzeng_tracks()
-<<<<<<< HEAD
+
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
-=======
->>>>>>> 294d8892ec0b362ed7bcc8280d22867ee64e1211
+
         if self.add_color_bar:
             self.plot_color_bar()
         if self.add_fulton_gap:
