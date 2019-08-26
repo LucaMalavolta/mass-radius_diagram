@@ -47,7 +47,7 @@ class Dataset_Input(Dataset):
             'radius','radius_error_max','radius_error_min',
             'star_mass','star_radius','star_teff','pl_ttvflag','textbox_ha','textbox_va', 'pl_upper_limit']
 
-        data_input = np.genfromtxt(
+        data_input = np.atleast_2d(np.genfromtxt(
             input_planets,           # file name
             skip_header=1,          # lines to skip at the top
             skip_footer=0,          # lines to skip at the bottom
@@ -55,34 +55,34 @@ class Dataset_Input(Dataset):
             dtype='float32',        # data type
             filling_values=0.00000000,       # fill missing values with 0
             #usecols = (0,2,3,5),    # columns to read
-            names=names_list) # column names
+            names=names_list)) # column names
 
-        self.pl_names = np.genfromtxt(
+        self.pl_names = np.atleast_1d(np.genfromtxt(
             input_planets,           # file name
             skip_header=1,          # lines to skip at the top
             skip_footer=0,          # lines to skip at the bottom
             delimiter=',',          # column delimiter
             dtype=str,        # data type
             filling_values=-1.000,       # fill missing values with 0
-            usecols = (0) )    #
+            usecols = (0) ))    #
 
-        self.textbox_ha = np.genfromtxt(
+        self.textbox_ha = np.atleast_1d(np.genfromtxt(
             input_planets,           # file name
             skip_header=1,          # lines to skip at the top
             skip_footer=0,          # lines to skip at the bottom
             delimiter=',',          # column delimiter
             dtype=str,        # data type
             filling_values=-1.000,       # fill missing values with 0
-            usecols = (12) )    #
+            usecols = (12) ))    #
 
-        self.textbox_va = np.genfromtxt(
+        self.textbox_va = np.atleast_1d(np.genfromtxt(
             input_planets,           # file name
             skip_header=1,          # lines to skip at the top
             skip_footer=0,          # lines to skip at the bottom
             delimiter=',',          # column delimiter
             dtype=str,        # data type
             filling_values=-1.000,       # fill missing values with 0
-            usecols = (13) )    #
+            usecols = (13) ))    #
 
         # this didn't work
 

@@ -1,6 +1,6 @@
 from subroutines.plotting_classes import *
 from subroutines.dataset_classes import *
-import cPickle as pickle
+import pickle
 
 #properties_dict['define_plot_USPP'] = False
 
@@ -18,32 +18,34 @@ except:
 
 MR_plot = MR_Plot()
 
+MR_plot.plot_size = [10,10]
+
 MR_plot.exclude_planet_names.extend(['Kepler-51 c'])
 
 
 MR_plot.fp_foplus_spaces = '    ' #Manually increase the distance between the Fp_Foplus label and the colorbar tick labels
 
 MR_plot.define_thick_markers = True
-MR_plot.define_planet_names = True
+MR_plot.define_planet_names = False
 MR_plot.define_alpha_density = False
 MR_plot.define_short_names = True
 MR_plot.no_color_scale = False
-MR_plot.mark_ttvs = True
-MR_plot.mark_flag_ttvs = True
+MR_plot.mark_ttvs = False
+MR_plot.mark_flag_ttvs = False
 
 #MR_plot.xlims = [8, 92]
 #MR_plot.ylims = [6.0, 12.]
 MR_plot.xlims = [3., 250]
 MR_plot.ylims = [2., 12.]
+MR_plot.xlims = [3., 650]
+MR_plot.ylims = [2., 18.]
 #MR_plot.logM = False
 #MR_plot.xticks = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]
 
 MR_plot.add_lzeng_tracks = False
 MR_plot.logM = True
-MR_plot.xticks = [2, 5, 10, 25, 50, 100, 250]
-
-MR_plot.plot_size = [12,10]
-
+#MR_plot.xticks = [5, 10, 25, 50, 100, 250]
+MR_plot.xticks = [5, 10, 25, 50, 100, 250, 500]
 
 #MR_plot.font_label = 16
 #MR_plot.font_planet_name = 10
@@ -60,25 +62,28 @@ MR_plot.plot_size = [12,10]
 #MR_plot.font_USP_name = 18
 #MR_plot.font_Solar_name =16
 
-MR_plot.font_label = 22
-MR_plot.font_planet_name = 14
-MR_plot.font_tracks =22
-MR_plot.font_my_planet = 22
-MR_plot.font_USP_name = 22
+MR_plot.font_label = 24
+MR_plot.font_planet_name = 12
+MR_plot.font_tracks = 16
+MR_plot.font_my_planet = 20
+MR_plot.font_USP_name = 18
 MR_plot.font_Solar_name =16
 
+MR_plot.add_solar_system_flag = False
 
-MR_plot.colorbar_axes_list=[0.12, 0.55, 0.03, 0.35]
+MR_plot.colorbar_axes_list=[0.155, 0.55, 0.03, 0.35]
+MR_plot.fp_foplus_spaces = '     ' #Manually increase the distance between the Fp_Foplus label and the colorbar tick labels
 
 
 MR_plot.prefix_output_name = './plots/ExoEU_MR_lowdensity'
+
+
 
 MR_plot.set_update_properties()
 #MR_plot.make_plot_with_my_planets(exo_dataset, my_planets)
 #MR_plot.make_plot_with_mine_and_other_planets(exo_dataset, my_planets, other_planets)
 
 
-MR_plot.set_update_properties()
 if my_planets is None:
     MR_plot.make_plot(exo_dataset)
 else:

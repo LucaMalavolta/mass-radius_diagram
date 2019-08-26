@@ -45,6 +45,7 @@ class MR_Plot():
         self.mark_ttvs = True
         self.mark_flag_ttvs = False
 
+        self.add_solar_system_flag = True
         self.add_color_bar = True
 
         self.name_thick_markers = ''
@@ -175,7 +176,8 @@ class MR_Plot():
         if self.add_fulton_gap:
             self.plot_fulton_gap()
         self.add_points_from_dataset(dataset)
-        self.add_solar_system()
+        if self.add_solar_system_flag:
+            self.add_solar_system()
 
     def make_plot_with_my_planets(self, dataset, my_planets):
 
@@ -201,7 +203,9 @@ class MR_Plot():
 
         self.add_points_from_dataset(dataset)
         self.add_my_planets(my_planets)
-        self.add_solar_system()
+
+        if self.add_solar_system_flag:
+            self.add_solar_system()
 
 
     def make_plot_with_mine_and_other_planets(self, dataset, my_planets, other_planets):
@@ -235,7 +239,8 @@ class MR_Plot():
         self.add_points_from_dataset(dataset)
         self.add_my_planets(my_planets)
         self.add_other_planets(other_planets)
-        self.add_solar_system()
+        if self.add_solar_system_flag:
+            self.add_solar_system()
 
     def insolation_scale(self, dataset):
 
@@ -552,7 +557,7 @@ class MR_Plot():
                 continue
 
             if self.define_planet_names and self.define_short_names:
-                for key_name, key_val in self.name_subtitutions.iteritems():
+                for key_name, key_val in self.name_subtitutions.items():
                     pl_name = pl_name.replace(key_name, key_val)
 
             if self.define_thick_markers:
@@ -847,7 +852,7 @@ class MR_Plot():
                                     + self.name_plot_USPP \
                                     + '.pdf'
         print('OUTPUT plot:  ', output_name)
-
+        #plt.tight_layout()
         plt.savefig(output_name, bbox_inches='tight')
         plt.close()
 
