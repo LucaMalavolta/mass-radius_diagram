@@ -115,12 +115,12 @@ class MR_Plot():
             '10_HHe': {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'winter', 'color':0.20, 'alpha':0.8, 'linestyle':'-', 'label':'10% H$_{2}$/He'},
         }
 
-        self.fulton_gap_on_top = False
-        self.add_fulton_gap = False
-        self.fulton_gap_parameters = {'x_pos':None, 'y_pos': None, 'rotation':None, 'cmap':'Blues', 'color':0.70, 'alpha':0.2, 'label':'Fulton gap'}
-        self.fulton_gap = [1.7, 0.2]
-        self.fulton_gap_shaded = True
-        self.fulton_label_position = ['bottom', 'left']
+        self.radius_gap_on_top = False
+        self.add_radius_gap = False
+        self.radius_gap_parameters = {'x_pos':None, 'y_pos': None, 'rotation':None, 'cmap':'Blues', 'color':0.70, 'alpha':0.2, 'label':'Radius gap'}
+        self.radius_gap = [1.7, 0.2]
+        self.radius_gap_shaded = True
+        self.radius_label_position = ['bottom', 'left']
 
         self.font_my_planet = 12
 
@@ -173,8 +173,8 @@ class MR_Plot():
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
 
-        if self.add_fulton_gap:
-            self.plot_fulton_gap()
+        if self.add_radius_gap:
+            self.plot_radius_gap()
         self.add_points_from_dataset(dataset)
         if self.add_solar_system_flag:
             self.add_solar_system()
@@ -198,8 +198,8 @@ class MR_Plot():
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
 
-        if self.add_fulton_gap:
-            self.plot_fulton_gap()
+        if self.add_radius_gap:
+            self.plot_radius_gap()
 
         self.add_points_from_dataset(dataset)
         self.add_my_planets(my_planets)
@@ -233,8 +233,8 @@ class MR_Plot():
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
 
-        if self.add_fulton_gap:
-            self.plot_fulton_gap()
+        if self.add_radius_gap:
+            self.plot_radius_gap()
 
         self.add_points_from_dataset(dataset)
         self.add_my_planets(my_planets)
@@ -310,41 +310,41 @@ class MR_Plot():
         self.ax1.set_xlabel('Mass [M$_{\oplus}$]')
         #plt.show()
 
-        self.compute_fulton_gap()
+        self.compute_radius_gap()
 
 
-    def compute_fulton_gap(self):
-        self.fulton_gap_x = np.arange(self.xlims[0]-self.xlims[0]/2., self.xlims[1]+0.1, 0.01)
-        self.fulton_gap_y = np.ones(len(self.fulton_gap_x))*self.fulton_gap[0]
+    def compute_radius_gap(self):
+        self.radius_gap_x = np.arange(self.xlims[0]-self.xlims[0]/2., self.xlims[1]+0.1, 0.01)
+        self.radius_gap_y = np.ones(len(self.radius_gap_x))*self.radius_gap[0]
 
-    def plot_fulton_gap(self):
+    def plot_radius_gap(self):
 
-        if  self.fulton_gap_on_top:
-            fulton_z_order = self.z_offset + 1000.0
+        if  self.radius_gap_on_top:
+            radius_z_order = self.z_offset + 1000.0
         else:
-            fulton_z_order = self.z_offset
+            radius_z_order = self.z_offset
 
-        #self.ax1.fill_between(self.fulton_gap_x, self.fulton_gap_y-self.fulton_gap[1], self.fulton_gap_y+self.fulton_gap[1], alpha=0.3)
+        #self.ax1.fill_between(self.radius_gap_x, self.radius_gap_y-self.radius_gap[1], self.radius_gap_y+self.radius_gap[1], alpha=0.3)
         xytext = [0, 0]
 
-        key_val = self.fulton_gap_parameters #shortcut
+        key_val = self.radius_gap_parameters #shortcut
 
-        if 'top' in self.fulton_label_position:
+        if 'top' in self.radius_label_position:
             va='top'
             xytext[1] = 3
-            y_axis = self.fulton_gap_y+self.fulton_gap[1]
+            y_axis = self.radius_gap_y+self.radius_gap[1]
 
-        if 'bottom' in self.fulton_label_position:
+        if 'bottom' in self.radius_label_position:
             va='bottom'
             xytext[1] = -6
-            y_axis = self.fulton_gap_y-self.fulton_gap[1]
+            y_axis = self.radius_gap_y-self.radius_gap[1]
 
-        if 'left' in self.fulton_label_position:
+        if 'left' in self.radius_label_position:
             ha='left'
             xytext[0] = 3
             x_pos = self.xlims[0]
 
-        if 'right' in self.fulton_label_position:
+        if 'right' in self.radius_label_position:
             ha='right'
             xytext[0] = -3
             x_pos = self.xlims[1]
@@ -355,39 +355,39 @@ class MR_Plot():
         if key_val['y_pos']:
             y_pos = key_val['y_pos']
         else:
-            x_pos, y_pos = self.interpolate_line_value(self.fulton_gap_x, y_axis, x_pos=x_pos)
+            x_pos, y_pos = self.interpolate_line_value(self.radius_gap_x, y_axis, x_pos=x_pos)
 
         if key_val['rotation']:
             rotation = key_val['rotation']
         else:
-            rotation = self.text_slope_match_line(self.ax1, self.fulton_gap_x, y_axis, x_pos)
+            rotation = self.text_slope_match_line(self.ax1, self.radius_gap_x, y_axis, x_pos)
 
         color_map = plt.get_cmap(key_val['cmap'])
         color = color_map(key_val['color'], alpha=key_val['alpha'])
         color_noalpha = color_map(key_val['color'], alpha=1.0)
 
-        if self.fulton_gap_shaded:
-            self.shade_fulton_gap(key_val, color)
+        if self.radius_gap_shaded:
+            self.shade_radius_gap(key_val, color)
         else:
-            self.ax1.fill_between(self.fulton_gap_x, self.fulton_gap_y-self.fulton_gap[1], self.fulton_gap_y+self.fulton_gap[1], color=color, zorder=0)
+            self.ax1.fill_between(self.radius_gap_x, self.radius_gap_y-self.radius_gap[1], self.radius_gap_y+self.radius_gap[1], color=color, zorder=0)
 
         self.ax1.annotate(key_val['label'], xy=(x_pos, y_pos), \
                          xytext=(xytext[0], xytext[1]), textcoords='offset points', ha=ha, va=va, \
-                         color=color_noalpha, zorder=1000+fulton_z_order, rotation=rotation, rotation_mode="anchor",
+                         color=color_noalpha, zorder=1000+radius_z_order, rotation=rotation, rotation_mode="anchor",
                      fontsize=self.font_tracks, weight='bold')
 
-    def shade_fulton_gap(self, key_val, color):
+    def shade_radius_gap(self, key_val, color):
 
-        N = len(self.fulton_gap_x)
+        N = len(self.radius_gap_x)
         M = 1000
 
-        ymin, ymax = min(self.fulton_gap_y - 5 * self.fulton_gap[1]), max(self.fulton_gap_y + 5 * self.fulton_gap[1])
+        ymin, ymax = min(self.radius_gap_y - 5 * self.radius_gap[1]), max(self.radius_gap_y + 5 * self.radius_gap[1])
         yy = np.linspace(ymin, ymax, M)
-        a = [np.exp(-((Y - yy) / self.fulton_gap[1]) ** 2) / self.fulton_gap[1] for Y in zip(self.fulton_gap_y)]
+        a = [np.exp(-((Y - yy) / self.radius_gap[1]) ** 2) / self.radius_gap[1] for Y in zip(self.radius_gap_y)]
         A = np.array(a)
         A = A.reshape(N, M)
         self.ax1.imshow(A.T, cmap=key_val['cmap'], alpha=key_val['alpha'], aspect='auto',
-                   origin='lower', extent=(min(self.fulton_gap_x), max(self.fulton_gap_x), ymin, ymax))
+                   origin='lower', extent=(min(self.radius_gap_x), max(self.radius_gap_x), ymin, ymax))
 
 
     def plot_color_bar(self):

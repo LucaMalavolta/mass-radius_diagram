@@ -37,7 +37,7 @@ MR_plot.prefix_output_name = './plots/ExoEU_MR_standard_noplanets_169'
 #MR_plot.font_my_planet = 16
 #MR_plot.font_USP_name = 14
 #MR_plot.font_Solar_name =14
-#MR_plot.prefix_output_name = './plots/large_ExoEU_MR_standard_fulton'
+#MR_plot.prefix_output_name = './plots/large_ExoEU_MR_standard_radius'
 
 #Combination 3
 #MR_plot.font_label = 16
@@ -46,11 +46,11 @@ MR_plot.prefix_output_name = './plots/ExoEU_MR_standard_noplanets_169'
 #MR_plot.font_my_planet = 16
 #MR_plot.font_USP_name = 14
 #MR_plot.font_Solar_name =14
-#MR_plot.prefix_output_name = './plots/giant_ExoEU_MR_standard_fulton'
+#MR_plot.prefix_output_name = './plots/giant_ExoEU_MR_standard_radius'
 
 #Combination 4
 MR_plot.plot_size = [16,9]
-#MR_plot.prefix_output_name = './plots/lplot_ExoEU_MR_standard_fulton'
+#MR_plot.prefix_output_name = './plots/lplot_ExoEU_MR_standard_radius'
 
 
 MR_plot.define_thick_markers = True
@@ -74,7 +74,7 @@ MR_plot.colorbar_axes_list=[0.10, 0.50, 0.03, 0.40]
 MR_plot.tracks_on_top = True
 
 
-#MR_plot.prefix_output_name = './plots/ExoEU_MR_standard_fulton'
+#MR_plot.prefix_output_name = './plots/ExoEU_MR_standard_radius'
 
 MR_plot.add_lzeng_tracks = True
 #MR_plot.lzeng_plot_list = ['100_fe','rocky','100_h2o']
@@ -96,9 +96,9 @@ for key_name in MR_plot.elopez_plot_parameters:
     MR_plot.elopez_plot_parameters[key_name]['linestyle'] = '--'
 
 
-MR_plot.fulton_gap = [1.7, 0.1]
-MR_plot.add_fulton_gap = False
-MR_plot.fulton_gap_shaded = True
+MR_plot.radius_gap = [1.7, 0.1]
+MR_plot.add_radius_gap = False
+MR_plot.radius_gap_shaded = True
 
 
 MR_plot.lzeng_plot_list = ['100_fe','75_fe','50_fe','25_fe','rocky','25_h2o','50_h2o','100_h2o','max_coll_strip']
