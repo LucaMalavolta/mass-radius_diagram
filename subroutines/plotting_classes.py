@@ -24,8 +24,8 @@ class MR_Plot():
         self.alpha_lower_value = 0.2
         self.default_alpha_density = True
         self.insol_min = 1.0
-        self.insol_max = 3000.0
-        self.colorbar_xvector = [1, 3, 10, 30, 100, 300, 1000, 3000]
+        self.insol_max = 6000.0
+        self.colorbar_xvector = [1, 3, 10, 30, 100, 300, 1000, 3000, 6000]
         self.add_overplot = 0.0
         #self.color_map = cmocean.cm.thermal
         self.color_map = matplotlib.cm.plasma
@@ -64,6 +64,9 @@ class MR_Plot():
         self.logR = False
         self.add_lzeng_tracks = True
         self.add_elopez_tracks = False
+        self.add_jupiter_densities = False
+
+        self.jupiter_densities_list = [1.0, 0.50, 0.25, 0.10, 0.05, 0.030]
 
         self.plot_size = [12,10]
 
@@ -72,6 +75,10 @@ class MR_Plot():
 
         self.marker_point = "o"
         self.marker_point_ttv = "s"
+
+        self.jupiter_units = False
+        self.e2j_mass = 1.
+        self.e2j_radius = 1.
 
         self.name_subtitutions = {
             'Kepler':'Kp',
@@ -135,9 +142,9 @@ class MR_Plot():
     def set_update_properties(self):
 
         if self.define_alpha_density and self.default_alpha_density:
-            self.alpha_upper_limit = 0.6
+            self.alpha_upper_limit = 0.8
             self.alpha_lower_limit = 0.3
-            self.alpha_upper_value = 0.6
+            self.alpha_upper_value = 1.0
             self.alpha_lower_value = 0.3
 
         if self.no_color_scale:
@@ -157,6 +164,9 @@ class MR_Plot():
         if self.define_alpha_density and (self.name_alpha_density is ''):
             self.name_alpha_density = '_rho'
 
+        if self.jupiter_units:
+            self.e2j_mass = 1./M_jup_to_ear
+            self.e2j_radius = 1./R_jup_to_ear
 
     def make_plot(self, dataset):
 
@@ -167,11 +177,15 @@ class MR_Plot():
 
         if self.add_color_bar:
             self.plot_color_bar()
+
         if self.add_lzeng_tracks:
             self.plot_lzeng_tracks()
 
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
+
+        if self.add_jupiter_densities:
+            self.plot_jupiter_densities()
 
         if self.add_radius_gap:
             self.plot_radius_gap()
@@ -197,6 +211,9 @@ class MR_Plot():
 
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
+
+        if self.add_jupiter_densities:
+            self.plot_jupiter_densities()
 
         if self.add_radius_gap:
             self.plot_radius_gap()
@@ -227,11 +244,15 @@ class MR_Plot():
 
         if self.add_color_bar:
             self.plot_color_bar()
+
         if self.add_lzeng_tracks:
             self.plot_lzeng_tracks()
 
         if self.add_elopez_tracks:
             self.plot_elopez_tracks()
+
+        if self.add_jupiter_densities:
+            self.plot_jupiter_densities()
 
         if self.add_radius_gap:
             self.plot_radius_gap()
@@ -305,9 +326,12 @@ class MR_Plot():
         #self.ax1.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
 
         #self.ax1.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, pos: str(int(round(x)))))
-
-        self.ax1.set_ylabel('Radius [R$_{\oplus}$]')
-        self.ax1.set_xlabel('Mass [M$_{\oplus}$]')
+        if self.jupiter_units:
+            self.ax1.set_ylabel('Radius [R$_\mathrm{J}$]')
+            self.ax1.set_xlabel('Mass [M$_\mathrm{J}$]')
+        else:
+            self.ax1.set_ylabel('Radius [R$_{\oplus}$]')
+            self.ax1.set_xlabel('Mass [M$_{\oplus}$]')
         #plt.show()
 
         self.compute_radius_gap()
@@ -405,12 +429,40 @@ class MR_Plot():
                                         ticks=x_logvector)
 
         ax2.yaxis.set_ticks_position(self.colorbar_ticks_position)
-        if self.colorbar_ticks_position == 'left':
-            ax2.set_title(self.fp_foplus_spaces + 'F$_{\mathrm{p}}$/F$_{\oplus}$')
-        else:
-            ax2.set_title('F$_{\mathrm{p}}$/F$_{\oplus}$' + self.fp_foplus_spaces)
+        #if self.colorbar_ticks_position == 'left':
+        #    ax2.set_title(self.fp_foplus_spaces + 'F$_{\mathrm{p}}$/F$_{\oplus}$')
+        #else:
+        #    ax2.set_title('F$_{\mathrm{p}}$/F$_{\oplus}$' + self.fp_foplus_spaces)
+
+        ax2.annotate('F$_{\mathrm{p}}$/F$_{\oplus}$', xy=(0, 0), xytext=(-1.1, 1.025),
+                     textcoords='axes fraction', ha='left', va='bottom',
+                     fontsize=self.font_label + 2, color='k', annotation_clip=True)
 
         cb1.ax.set_yticklabels(self.colorbar_xvector)
+
+    def plot_jupiter_densities(self):
+
+        mass = np.arange(0.001, 3.0, 0.001)
+        n_dens = len(self.jupiter_densities_list)
+        for i_d, density in enumerate(self.jupiter_densities_list):
+
+            val = '{0:1.2f}'.format(density)
+            radius = np.power(mass/density ,1./3.)
+            dict_pams = {
+                'x_pos'    : None,
+                'y_pos'    : None,
+                'rotation' : None,
+                'use_box'  : True,
+                'cmap'     : 'viridis',
+                #'cmap'     : 'gist_heat',
+                'color'    : 1./(n_dens+2) *i_d,
+                'alpha'    : 0.8,
+                'linestyle': '-',
+                'label'    : val + ' $\\rho_{\mathrm{J}}$',
+                'overplot' : True
+                }
+
+            self.add_tracks(mass, radius, key_val=dict_pams)
 
     def plot_lzeng_tracks(self):
         for key_name in self.lzeng_plot_list:
@@ -447,23 +499,6 @@ class MR_Plot():
             if key_val is None:
                 key_val = self.default_plot_parameters
 
-
-            if not (key_val['x_pos'] or key_val['y_pos']):
-                x_pos, y_pos = self.interpolate_line_value(mass, radius)
-            elif key_val['x_pos']:
-                x_pos, y_pos = self.interpolate_line_value(mass, radius, x_pos=key_val['x_pos'])
-            elif key_val['y_pos']:
-                x_pos, y_pos = self.interpolate_line_value(mass, radius, y_pos=key_val['y_pos'])
-            else:
-                x_pos = key_val['x_pos']
-                y_pos = key_val['y_pos']
-
-            if key_val['rotation']:
-                rotation = key_val['rotation']
-            else:
-                rotation = self.text_slope_match_line(self.ax1, mass, radius, x_pos)
-
-
             try:
 
                 if not (key_val['x_pos'] or key_val['y_pos']):
@@ -491,7 +526,10 @@ class MR_Plot():
             color = color_map(key_val['color'], alpha=key_val['alpha'])
             color_noalpha = color_map(key_val['color'], alpha=1.0)
 
-            line = self.ax1.plot(mass, radius, color=color, zorder=0+z_order, ls=key_val['linestyle'])
+            if 'overplot' in key_val:
+                line = self.ax1.plot(mass, radius, color=color, zorder=950+z_order, ls=key_val['linestyle'])
+            else:
+                line = self.ax1.plot(mass, radius, color=color, zorder=0+z_order, ls=key_val['linestyle'])
 
 
 
@@ -518,12 +556,12 @@ class MR_Plot():
         n_planets = len(dataset.pl_mass)
         for ind in range(0, n_planets):
 
-            pos = dataset.pl_mass[ind]
-            ypt = dataset.pl_radius[ind]
-            m_err1 = dataset.pl_mass_error_max[ind]
-            m_err2 = dataset.pl_mass_error_min[ind]
-            r_err1 = dataset.pl_radius_error_max[ind]
-            r_err2 = dataset.pl_radius_error_min[ind]
+            pos = dataset.pl_mass[ind] * self.e2j_mass
+            ypt = dataset.pl_radius[ind] * self.e2j_radius
+            m_err1 = dataset.pl_mass_error_max[ind] * self.e2j_mass
+            m_err2 = dataset.pl_mass_error_min[ind] * self.e2j_mass
+            r_err1 = dataset.pl_radius_error_max[ind] * self.e2j_radius
+            r_err2 = dataset.pl_radius_error_min[ind] * self.e2j_radius
             color = dataset.colors[ind]
             alpha_orig = dataset.alphas_original[ind]
 
@@ -606,12 +644,12 @@ class MR_Plot():
         n_planets = len(dataset.pl_mass)
         for ind in range(0, n_planets):
 
-            pos = dataset.pl_mass[ind]
-            ypt = dataset.pl_radius[ind]
-            m_err1 = dataset.pl_mass_error_max[ind]
-            m_err2 = dataset.pl_mass_error_min[ind]
-            r_err1 = dataset.pl_radius_error_max[ind]
-            r_err2 = dataset.pl_radius_error_min[ind]
+            pos = dataset.pl_mass[ind]  * self.e2j_mass
+            ypt = dataset.pl_radius[ind] * self.e2j_radius
+            m_err1 = dataset.pl_mass_error_max[ind] * self.e2j_mass
+            m_err2 = dataset.pl_mass_error_min[ind] * self.e2j_mass
+            r_err1 = dataset.pl_radius_error_max[ind] * self.e2j_radius
+            r_err2 = dataset.pl_radius_error_min[ind] * self.e2j_radius
             color = dataset.colors[ind]
             alpha_orig = dataset.alphas_original[ind] + 10
 
@@ -656,7 +694,8 @@ class MR_Plot():
                     color_mod = self.color_map(0.9, alpha=color[3])
                 else:
                     color_mod = color
-                self.ax1.plot(pos, ypt, color=color, zorder=alpha_orig+self.add_overplot+1.3+self.z_offset, marker=marker_point, mfc=color, mec='k', markersize=self.markersize_USP, mew=self.markersize_USP/6 )
+                #self.ax1.plot(pos, ypt, color=color, zorder=alpha_orig+self.add_overplot+1.3+self.z_offset, marker=marker_point, mfc=color, mec='k', markersize=self.markersize_USP, mew=self.markersize_USP/6 )
+                self.ax1.plot(pos, ypt, color=color, zorder=alpha_orig+self.add_overplot+1.3+self.z_offset, marker=marker_point, mfc=color_mod, mec='k', markersize=self.markersize_USP, mew=self.markersize_USP/6 )
 
             else:
                 self.ax1.errorbar(pos, ypt, xerr=([m_err2], [m_err1]), color=color, zorder=alpha_orig+self.add_overplot+self.z_offset, marker=marker_point, mfc='white', markersize=0)
@@ -667,7 +706,7 @@ class MR_Plot():
             if self.define_planet_names_USPP and pl_period < 1.0000:
                 if pos*0.98 < self.xlims[0] or pos*1.02 > self.xlims[1] or ypt*0.98 < self.ylims[0] or ypt > self.ylims[1]: continue
                 bbox_props = dict(boxstyle="square", fc="w", alpha=0.7, edgecolor=color, pad=0.1)
-                if pl_name=='K2-141 b':
+                if pl_name=='K2-141 b' or pl_name == 'K2-229 b':
                     self.ax1.annotate(pl_name, xy=(pos, ypt),
                                  xytext=(4, -4), textcoords='offset points', ha='left', va='top',
                                  color='k', fontsize=self.font_USP_name, zorder=alpha_orig + self.add_overplot/2. + 0.5 + self.z_offset,
@@ -685,7 +724,7 @@ class MR_Plot():
                                  color='k', fontsize=self.font_USP_name, zorder=alpha_orig + self.add_overplot/2. + 0.5 + self.z_offset,
                                  annotation_clip=True, bbox=bbox_props)
 
-                elif pl_name=='K2-131 b' or pl_name=='Kepler-10 b' or pl_name == 'HD 3167 b':
+                elif pl_name=='K2-131 b' or pl_name=='Kepler-10 b' or pl_name == 'HD 3167 b' or pl_name =='CoRoT-7 b':
                     self.ax1.annotate(pl_name, xy=(pos, ypt),
                                  xytext=(-4, -4), textcoords='offset points', ha='right', va='top',
                                  color='k', fontsize=self.font_USP_name, zorder=alpha_orig + self.add_overplot/2. + 0.5 + self.z_offset,
@@ -702,12 +741,12 @@ class MR_Plot():
         n_planets = len(dataset.pl_mass)
         for ind in range(0, n_planets):
 
-            pos = dataset.pl_mass[ind]
-            ypt = dataset.pl_radius[ind]
-            m_err1 = dataset.pl_mass_error_max[ind]
-            m_err2 = dataset.pl_mass_error_min[ind]
-            r_err1 = dataset.pl_radius_error_max[ind]
-            r_err2 = dataset.pl_radius_error_min[ind]
+            pos = dataset.pl_mass[ind] * self.e2j_mass
+            ypt = dataset.pl_radius[ind]  * self.e2j_radius
+            m_err1 = dataset.pl_mass_error_max[ind] * self.e2j_mass
+            m_err2 = dataset.pl_mass_error_min[ind] * self.e2j_mass
+            r_err1 = dataset.pl_radius_error_max[ind]  * self.e2j_radius
+            r_err2 = dataset.pl_radius_error_min[ind]  * self.e2j_radius
             color = dataset.colors[ind]
             alpha_orig = dataset.alphas_original[ind]
             pl_name = dataset.pl_names[ind]
@@ -737,10 +776,10 @@ class MR_Plot():
                 #self.ax1.plot(pos, ypt, color=color_mod, zorder=z_order+0.3, marker=marker_point, mfc=color_bar, mec='k', mew = 2 , markersize=self.markersize*2, lw=4)
                 self.ax1.plot(pos, ypt, color=color_bar, zorder=z_order+0.3, marker=marker_point, mfc=color_mod, mec='k', mew = 1 , markersize=self.markersize*1.5, lw=2)
             else:
+                color_mod = [0.961336,0.548636,0.275305,1.      ]
                 self.ax1.errorbar(pos, ypt, xerr=([m_err2], [m_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize, lw=4)
                 self.ax1.errorbar(pos, ypt, yerr=([r_err2], [r_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize, lw=4)
                 self.ax1.plot(pos, ypt, color=color_mod, zorder=z_order+0.3, marker=marker_point, mfc=color_mod, mec='k', mew = 2 , markersize=self.markersize*2, lw=4)
-
 
 
             if pos*0.98 < self.xlims[0] or pos*1.02 > self.xlims[1] or ypt*0.98 < self.ylims[0] or ypt > self.ylims[1]: continue
@@ -769,12 +808,12 @@ class MR_Plot():
         n_planets = len(dataset.pl_mass)
         for ind in range(0, n_planets):
 
-            pos = dataset.pl_mass[ind]
-            ypt = dataset.pl_radius[ind]
-            m_err1 = dataset.pl_mass_error_max[ind]
-            m_err2 = dataset.pl_mass_error_min[ind]
-            r_err1 = dataset.pl_radius_error_max[ind]
-            r_err2 = dataset.pl_radius_error_min[ind]
+            pos = dataset.pl_mass[ind]  * self.e2j_mass
+            ypt = dataset.pl_radius[ind]  * self.e2j_radius
+            m_err1 = dataset.pl_mass_error_max[ind]  * self.e2j_mass
+            m_err2 = dataset.pl_mass_error_min[ind]  * self.e2j_mass
+            r_err1 = dataset.pl_radius_error_max[ind]  * self.e2j_radius
+            r_err2 = dataset.pl_radius_error_min[ind]  * self.e2j_radius
             color = dataset.colors[ind]
             alpha_orig = dataset.alphas_original[ind]
             pl_name = dataset.pl_names[ind]
@@ -858,7 +897,6 @@ class MR_Plot():
 
     def interpolate_line_value(self, mass, radius, x_pos=None, y_pos=None,
         default_position = 'top_right'):
-
 
         if default_position == 'top_right':
             ind = np.where((radius<=self.ylims[1]) & (mass<=self.xlims[1]))[0][-1]

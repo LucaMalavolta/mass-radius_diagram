@@ -108,6 +108,7 @@ class Dataset_Input(Dataset):
 
         self.compute_derived_parameters()
 
+        
 
 class Dataset_Combined(Dataset):
     def __init__(self):
@@ -193,7 +194,9 @@ class Dataset_Combined(Dataset):
             (data_combined['star_mass']>0.0) & (data_combined['star_radius']>0.) & (data_combined['star_teff']>0.) & \
             (data_combined['radius_error_min']/data_combined['radius']<0.99 ) & (data_combined['radius_error_max']/data_combined['radius']<0.99 ) & \
             (data_combined['mass_error_min']/data_combined['mass']<0.99 ) & (data_combined['mass_error_max']/data_combined['mass']<0.99 ) & \
-            (data_combined['mass_error_min']>0.0) & (data_combined['mass_error_max']>0.0) & (data_combined['radius_error_min']>0.0) & (data_combined['radius_error_max']>0.0)
+            (data_combined['mass_error_min']>0.0) & (data_combined['mass_error_max']>0.0) & (data_combined['radius_error_min']>0.0) & (data_combined['radius_error_max']>0.0) & \
+            (data_combined['mass_detection_type'] != 'Theoretical')
+
 
         self.pl_names = data_combined['name'][sel]
         self.pl_orbper = data_combined['orbital_period'][sel]
@@ -220,6 +223,9 @@ class Dataset_ExoplanetEU(Dataset):
 
         n_planets = len(data_eu['# name'])
 
+        #print(data_eu['mass_detection_type'].values)
+        #print(data_eu['mass_detection_type'])
+
         data_eu['name'] = data_eu['# name']
 
         data_eu['mass_error_min'] *= M_jup_to_ear
@@ -234,7 +240,8 @@ class Dataset_ExoplanetEU(Dataset):
             (data_eu['star_mass']>0.0) & (data_eu['star_radius']>0.) & (data_eu['star_teff']>0.) & \
             (data_eu['radius_error_min']/data_eu['radius']<0.99 ) & (data_eu['radius_error_max']/data_eu['radius']<0.99 ) & \
             (data_eu['mass_error_min']/data_eu['mass']<0.99 ) & (data_eu['mass_error_max']/data_eu['mass']<0.99) & \
-            (data_eu['mass_error_min']>0.0) & (data_eu['mass_error_max']>0.0) & (data_eu['radius_error_min']>0.0) & (data_eu['radius_error_max']>0.0)
+            (data_eu['mass_error_min']>0.0) & (data_eu['mass_error_max']>0.0) & (data_eu['radius_error_min']>0.0) & (data_eu['radius_error_max']>0.0) & \
+            (data_eu['mass_detection_type'] != 'Theoretical') & (data_eu['radius_detection_type'] != 'Theoretical')
 
         self.pl_names = data_eu['# name'][sel].values
         self.pl_orbper = data_eu['orbital_period'][sel].values
