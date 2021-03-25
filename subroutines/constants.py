@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import pandas
 from matplotlib import rc
 import matplotlib as mpl
-import cmocean
 
 
 G_grav = 6.67398e-11

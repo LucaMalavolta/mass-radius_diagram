@@ -34,6 +34,7 @@ class Dataset():
 
         self.perc_error_density = self.pl_denserr_avg/self.pl_dens
         self.perc_error_mass = self.pl_masserr_avg/self.pl_mass
+        self.perc_error_radius = self.pl_radiuserr_avg / self.pl_radius
 
         self.alphas = None
         self.alphas_original = None
@@ -47,7 +48,7 @@ class Dataset_Input(Dataset):
             'radius','radius_error_max','radius_error_min',
             'star_mass','star_radius','star_teff','pl_ttvflag','textbox_ha','textbox_va', 'pl_upper_limit']
 
-        data_input = np.atleast_2d(np.genfromtxt(
+        data_input = np.genfromtxt(
             input_planets,           # file name
             skip_header=1,          # lines to skip at the top
             skip_footer=0,          # lines to skip at the bottom
@@ -55,7 +56,7 @@ class Dataset_Input(Dataset):
             dtype='float32',        # data type
             filling_values=0.00000000,       # fill missing values with 0
             #usecols = (0,2,3,5),    # columns to read
-            names=names_list)) # column names
+            names=names_list) # column names
 
         self.pl_names = np.atleast_1d(np.genfromtxt(
             input_planets,           # file name
@@ -193,7 +194,8 @@ class Dataset_Combined(Dataset):
             (data_combined['star_mass']>0.0) & (data_combined['star_radius']>0.) & (data_combined['star_teff']>0.) & \
             (data_combined['radius_error_min']/data_combined['radius']<0.99 ) & (data_combined['radius_error_max']/data_combined['radius']<0.99 ) & \
             (data_combined['mass_error_min']/data_combined['mass']<0.99 ) & (data_combined['mass_error_max']/data_combined['mass']<0.99 ) & \
-            (data_combined['mass_error_min']>0.0) & (data_combined['mass_error_max']>0.0) & (data_combined['radius_error_min']>0.0) & (data_combined['radius_error_max']>0.0)
+            (data_combined['mass_error_min']>0.0) & (data_combined['mass_error_max']>0.0) & (data_combined['radius_error_min']>0.0) & (data_combined['radius_error_max']>0.0) & \
+            ~((data_combined['mass_detection_type']=='Theoretical') | (data_combined['radius_detection_type']=='Theoretical'))
 
         self.pl_names = data_combined['name'][sel]
         self.pl_orbper = data_combined['orbital_period'][sel]
@@ -234,7 +236,8 @@ class Dataset_ExoplanetEU(Dataset):
             (data_eu['star_mass']>0.0) & (data_eu['star_radius']>0.) & (data_eu['star_teff']>0.) & \
             (data_eu['radius_error_min']/data_eu['radius']<0.99 ) & (data_eu['radius_error_max']/data_eu['radius']<0.99 ) & \
             (data_eu['mass_error_min']/data_eu['mass']<0.99 ) & (data_eu['mass_error_max']/data_eu['mass']<0.99) & \
-            (data_eu['mass_error_min']>0.0) & (data_eu['mass_error_max']>0.0) & (data_eu['radius_error_min']>0.0) & (data_eu['radius_error_max']>0.0)
+            (data_eu['mass_error_min']>0.0) & (data_eu['mass_error_max']>0.0) & (data_eu['radius_error_min']>0.0) & (data_eu['radius_error_max']>0.0) & \
+            ~((data_eu['mass_detection_type']=='Theoretical') | (data_eu['radius_detection_type']=='Theoretical'))
 
         self.pl_names = data_eu['# name'][sel].values
         self.pl_orbper = data_eu['orbital_period'][sel].values

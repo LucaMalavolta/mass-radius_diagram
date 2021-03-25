@@ -1,6 +1,6 @@
 from subroutines.plotting_classes import *
 from subroutines.dataset_classes import *
-import cPickle as pickle
+import pickle
 
 #properties_dict['define_plot_USPP'] = False
 
@@ -124,7 +124,7 @@ plot_parameters['linestyle'] = '--'
 plot_parameters['label']='+1% H$_{2}$'
 plot_parameters['use_box'] = True
 plot_parameters['x_pos'] = 19.0
-MR_plot.add_track_from_files('LiZeng_private_tracks/interpolated_halfh2o01h300K1mbar.dat', plot_parameters)
+MR_plot.add_track_from_files('LZeng_tracks/Earthlike1h300K1mbar_interpolated.txt', plot_parameters)
 
 
 

@@ -17,6 +17,10 @@ class MR_Plot():
         self.ylims = [0.8, 4.3]
         self.xy_labels = [19.0, 4.2]
 
+        self.only_precise_MR_avg = False
+        self.only_precise_MR = False
+        self.MR_limit = 0.3 
+
         self.define_alpha_density = False
         self.alpha_upper_limit = 0.8
         self.alpha_lower_limit = 0.1
@@ -83,12 +87,17 @@ class MR_Plot():
             ' ':''
         }
 
+        self.language = 'English'
+
+
         self.default_plot_parameters = {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.00, 'alpha':0.8, 'linestyle':'-', 'label':'100% Fe'}
 
         self.tracks_on_top = False
 
         self.lzeng_tracks = np.genfromtxt('./LZeng_tracks/Zeng2016_mrtable2.txt', skip_header=1, \
          names = ['Mearth','100_fe','75_fe','50_fe','30_fe','25_fe','20_fe','rocky','25_h2o','50_h2o','100_h2o','cold_h2_he','max_coll_strip'] )
+
+
 
         self.lzeng_plot_list = ['100_fe','75_fe','50_fe','25_fe','rocky','25_h2o','50_h2o','100_h2o','cold_h2_he','max_coll_strip']
         self.lzeng_plot_parameters = {
@@ -98,7 +107,13 @@ class MR_Plot():
             '30_fe':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.70, 'alpha':0.8, 'linestyle':'-', 'label':'30% Fe'},
             '25_fe':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.75, 'alpha':0.8, 'linestyle':'-', 'label':'25% Fe'},
             '20_fe':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.80, 'alpha':0.8, 'linestyle':'-', 'label':'20% Fe'},
-            'rocky':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'Greens',    'color':0.50, 'alpha':0.8, 'linestyle':'-', 'label':'Rocky'},
+            'rocky':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'Greens',    'color':0.50, 'alpha':0.8, 'linestyle':'-', 'label':'100% Rocky'},
+            #'75_fe':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.25, 'alpha':0.8, 'linestyle':'-', 'label':'75% Fe, 25% MgSiO$_{3}$'},
+            #'50_fe':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.50, 'alpha':0.8, 'linestyle':'-', 'label':'50% Fe, 50% MgSiO$_{3}$'},
+            #'30_fe':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.70, 'alpha':0.8, 'linestyle':'-', 'label':'30% Fe, 70% MgSiO$_{3}$'},
+            #'25_fe':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.75, 'alpha':0.8, 'linestyle':'-', 'label':'25% Fe, 75% MgSiO$_{3}$'},
+            #'20_fe':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'gist_heat', 'color':0.80, 'alpha':0.8, 'linestyle':'-', 'label':'20% Fe, 80% MgSiO$_{3}$'},
+            #'rocky':          {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':False, 'cmap':'Greens',    'color':0.50, 'alpha':0.8, 'linestyle':'-', 'label':'100% MgSiO$_{3}$'},
             '25_h2o':         {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':True , 'cmap':'winter', 'color':0.75, 'alpha':0.8, 'linestyle':'-', 'label':'25% H$_{2}$O'},
             '50_h2o':         {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':True , 'cmap':'winter', 'color':0.50, 'alpha':0.8, 'linestyle':'-', 'label':'50% H$_{2}$O'},
             '100_h2o':        {'x_pos':None, 'y_pos': None, 'rotation':None, 'use_box':True , 'cmap':'winter', 'color':0.00, 'alpha':0.8, 'linestyle':'-', 'label':'100% H$_{2}$O'},
@@ -248,12 +263,13 @@ class MR_Plot():
             dataset.insol_01 = transform_linear_colorscale(dataset.insol, self.insol_min, self.insol_max)
         else:
             dataset.insol_01 = transform_log_colorscale(dataset.insol, self.insol_min, self.insol_max)
+
+        #print(dataset.insol)
         dataset.insol_01 = [0.0 if i < 0.0 else i for i in dataset.insol_01]
         dataset.insol_01 = [1.00 if i > 1.00 else i for i in dataset.insol_01]
 
         if self.no_color_scale:
             dataset.insol_01 =[0.0 if i < 0.0 else 0.0 for i in dataset.insol_01]
-
 
     def define_alpha_colors(self, dataset):
 
@@ -270,6 +286,23 @@ class MR_Plot():
         if self.no_alpha_colors:
             dataset.alphas *= 0
             dataset.alphas += 1.
+
+        if self.only_precise_MR_avg:
+            dataset.alphas *= 0.00
+            selection = (np.abs(dataset.perc_error_mass) < self.MR_limit) & (np.abs(dataset.perc_error_radius) < self.MR_limit)
+            dataset.alphas[selection] = 1.00
+
+
+        if self.only_precise_MR:
+            dataset.alphas *= 0.00
+            selection = (np.abs(dataset.pl_mass_error_max/dataset.pl_mass) < self.MR_limit) \
+                & (np.abs(dataset.pl_mass_error_min/dataset.pl_mass) < self.MR_limit) \
+                & (np.abs(dataset.pl_radius_error_max/dataset.pl_radius) < self.MR_limit) \
+                & (np.abs(dataset.pl_radius_error_max/dataset.pl_radius) < self.MR_limit)
+
+            dataset.alphas[selection] = 1.00
+
+
 
         #colors = [self.color_map(i, alpha=a) for i, a in zip(dataset.insol_01, np.power(dataset.alphas,2))]
         #colors_noalpha = [self.color_map(i, alpha=1.0) for i in dataset.insol_01]
@@ -306,8 +339,12 @@ class MR_Plot():
 
         #self.ax1.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, pos: str(int(round(x)))))
 
-        self.ax1.set_ylabel('Radius [R$_{\oplus}$]')
-        self.ax1.set_xlabel('Mass [M$_{\oplus}$]')
+        if self.language == 'Italian':
+            self.ax1.set_ylabel('Raggio [R$_{\oplus}$]')
+            self.ax1.set_xlabel('Massa [M$_{\oplus}$]')
+        else:
+            self.ax1.set_ylabel('Radius [R$_{\oplus}$]')
+            self.ax1.set_xlabel('Mass [M$_{\oplus}$]')
         #plt.show()
 
         self.compute_radius_gap()
@@ -447,34 +484,17 @@ class MR_Plot():
             if key_val is None:
                 key_val = self.default_plot_parameters
 
-
-            if not (key_val['x_pos'] or key_val['y_pos']):
-                x_pos, y_pos = self.interpolate_line_value(mass, radius)
-            elif key_val['x_pos']:
-                x_pos, y_pos = self.interpolate_line_value(mass, radius, x_pos=key_val['x_pos'])
-            elif key_val['y_pos']:
-                x_pos, y_pos = self.interpolate_line_value(mass, radius, y_pos=key_val['y_pos'])
-            else:
-                x_pos = key_val['x_pos']
-                y_pos = key_val['y_pos']
-
-            if key_val['rotation']:
-                rotation = key_val['rotation']
-            else:
-                rotation = self.text_slope_match_line(self.ax1, mass, radius, x_pos)
-
-
             try:
 
                 if not (key_val['x_pos'] or key_val['y_pos']):
                     x_pos, y_pos = self.interpolate_line_value(mass, radius)
+                elif key_val['x_pos'] and key_val['y_pos']:
+                    x_pos = key_val['x_pos']
+                    y_pos = key_val['y_pos']
                 elif key_val['x_pos']:
                     x_pos, y_pos = self.interpolate_line_value(mass, radius, x_pos=key_val['x_pos'])
                 elif key_val['y_pos']:
                     x_pos, y_pos = self.interpolate_line_value(mass, radius, y_pos=key_val['y_pos'])
-                else:
-                    x_pos = y_pos=key_val['x_pos']
-                    y_pos = y_pos=key_val['y_pos']
 
                 if key_val['rotation']:
                     rotation = key_val['rotation']
@@ -502,12 +522,12 @@ class MR_Plot():
                 self.ax1.annotate(key_val['label'], xy=(x_pos, y_pos), \
                                  xytext=(0, -6), textcoords='offset points', ha='right', va='top', \
                                  color=color_noalpha, zorder=1000+z_order, rotation=rotation, rotation_mode="anchor",
-                                 fontsize=self.font_tracks, weight='bold', bbox=bbox_props)
+                                 fontsize=self.font_tracks,  fontweight='bold', bbox=bbox_props, fontstretch='extra-condensed')
             else:
                 self.ax1.annotate(key_val['label'], xy=(x_pos, y_pos), \
                                  xytext=(0, -6), textcoords='offset points', ha='right', va='top', \
                                  color=color_noalpha, zorder=1000+z_order, rotation=rotation, rotation_mode="anchor",
-                                 fontsize=self.font_tracks, weight='bold' )#, bbox=bbox_props)
+                                 fontsize=self.font_tracks, fontweight='bold', fontstretch='extra-condensed' )#, bbox=bbox_props)
             if 'fill_below' in key_val:
                 self.ax1.fill_between(mass, 0, radius, color=color, alpha=0.15)
             if 'fill_between' in key_val:
@@ -698,7 +718,7 @@ class MR_Plot():
 
 
     def add_my_planets(self, dataset):
-        z_order = self.add_overplot+self.z_offset+2000.00
+        z_order = self.add_overplot+self.z_offset+20000.00
         n_planets = len(dataset.pl_mass)
         for ind in range(0, n_planets):
 
@@ -732,11 +752,12 @@ class MR_Plot():
             if pl_upper_limit:
                 color_bar = self.color_map(insol01_val, alpha=0.5)
                 self.ax1.errorbar(0.0, ypt, xerr=pos + m_err1, color=color_bar, zorder=z_order, lw=4, xlolims=True, capsize=5)
-                self.ax1.errorbar(pos, ypt, yerr=([r_err2], [r_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize*1.5, lw=2)
+                self.ax1.errorbar(pos, ypt, yerr=([r_err2], [r_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize, lw=4)
                 #self.ax1.plot(pos, ypt, color='white', zorder=z_order+0.2, marker=marker_point, mfc='white', mec='k', mew = 0 , markersize=self.markersize*2, lw=0)
                 #self.ax1.plot(pos, ypt, color=color_mod, zorder=z_order+0.3, marker=marker_point, mfc=color_bar, mec='k', mew = 2 , markersize=self.markersize*2, lw=4)
-                self.ax1.plot(pos, ypt, color=color_bar, zorder=z_order+0.3, marker=marker_point, mfc=color_mod, mec='k', mew = 1 , markersize=self.markersize*1.5, lw=2)
+                self.ax1.plot(pos, ypt, color=color_bar, zorder=z_order+0.3, marker=marker_point, mfc=color_mod, mec='k', mew = 2 , markersize=self.markersize*2, lw=4)
             else:
+                #self.ax1.errorbar(pos, ypt, xerr=([m_err2], [m_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize, lw=4)
                 self.ax1.errorbar(pos, ypt, xerr=([m_err2], [m_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize, lw=4)
                 self.ax1.errorbar(pos, ypt, yerr=([r_err2], [r_err1]), color=color_mod, zorder=z_order, marker=marker_point, mfc='white', markersize=self.markersize, lw=4)
                 self.ax1.plot(pos, ypt, color=color_mod, zorder=z_order+0.3, marker=marker_point, mfc=color_mod, mec='k', mew = 2 , markersize=self.markersize*2, lw=4)
@@ -826,17 +847,25 @@ class MR_Plot():
                 annotation_clip=True, bbox=bbox_props)
 
     def add_solar_system(self):
+
+        if self.language == 'Italian':
+            earth  = 'Terra'
+            venus = 'Venere'
+        else:
+            earth  = 'Earth'
+            venus = 'Venus'
+
         bbox_props = dict(boxstyle="square", fc="w", alpha=0.9, edgecolor='b', pad=0.1)
 
         self.ax1.plot([0.815, 1.00],[0.949,1.00],'ob', markersize=self.markersize+4, marker='*', zorder= 10000+ self.z_offset)
-        self.ax1.annotate('Earth', xy=(1.0, 1.0),
+        self.ax1.annotate(earth, xy=(1.0, 1.0),
                      xytext=(5, 5), textcoords='offset points', ha='left', va='bottom',
                      color='b', fontsize=self.font_Solar_name, zorder= 10000+ self.z_offset,
-                     annotation_clip=True, bbox=bbox_props)
-        self.ax1.annotate('Venus', xy=(0.815, 0.949),
+                     annotation_clip=True, bbox=bbox_props, stretch='condensed')
+        self.ax1.annotate(venus, xy=(0.815, 0.949),
                      xytext=(5, 5), textcoords='offset points', ha='left', va='top',
                      color='b', fontsize=self.font_Solar_name, zorder= 10000+ self.z_offset,
-                     annotation_clip=True, bbox=bbox_props)
+                     annotation_clip=True, bbox=bbox_props, stretch='condensed')
 
 
     def show_figure(self):

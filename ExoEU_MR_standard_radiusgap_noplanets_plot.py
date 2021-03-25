@@ -97,7 +97,7 @@ for key_name in MR_plot.elopez_plot_parameters:
 
 
 MR_plot.radius_gap = [1.7, 0.1]
-MR_plot.add_radius_gap = True
+MR_plot.add_radius_gap = False
 MR_plot.radius_gap_shaded = True
 
 
@@ -105,7 +105,17 @@ MR_plot.lzeng_plot_list = ['100_fe','75_fe','50_fe','25_fe','rocky','25_h2o','50
 
 
 MR_plot.set_update_properties()
+
 MR_plot.make_plot(exo_dataset)
 
+#Uncomment this snippet to include additional tracks from private files
+# plot_parameters = MR_plot.default_plot_parameters.copy()
+# plot_parameters['cmap']='winter'
+# plot_parameters['color']=0.60
+# plot_parameters['linestyle'] = '--'
+# plot_parameters['label']='+1% H$_{2}$'
+# plot_parameters['use_box'] = True
+# plot_parameters['x_pos'] = 19.0
+# MR_plot.add_track_from_files('LZeng_tracks/Earthlike1h300K1mbar_interpolated.txt', plot_parameters)
 
 MR_plot.save_figure()

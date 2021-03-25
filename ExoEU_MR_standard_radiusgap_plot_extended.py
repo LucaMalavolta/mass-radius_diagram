@@ -100,7 +100,7 @@ for key_name in MR_plot.elopez_plot_parameters:
     MR_plot.elopez_plot_parameters[key_name]['linestyle'] = '--'
 
 
-MR_plot.radius_gap = [1.7, 0.1]
+MR_plot.radius_gap = [1.85, 0.15]
 MR_plot.add_radius_gap = True
 MR_plot.radius_gap_shaded = True
 
