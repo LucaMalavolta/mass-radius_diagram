@@ -110,6 +110,7 @@ class Dataset_Input(Dataset):
         self.compute_derived_parameters()
 
 
+
 class Dataset_Combined(Dataset):
     def __init__(self):
 
@@ -221,6 +222,9 @@ class Dataset_ExoplanetEU(Dataset):
         data_eu = pandas.read_csv('./Exoplanets_eu/exoplanet.eu_catalog.csv')
 
         n_planets = len(data_eu['# name'])
+
+        #print(data_eu['mass_detection_type'].values)
+        #print(data_eu['mass_detection_type'])
 
         data_eu['name'] = data_eu['# name']
 

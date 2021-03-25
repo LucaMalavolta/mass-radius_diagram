@@ -82,7 +82,7 @@ MR_plot.ylims = [0.8, 2.8]
 MR_plot.xticks = [0.5, 1, 2, 5, 10, 20]
 #MR_plot.xy_labels = [20.7, 2.80]
 
-MR_plot.colorbar_axes_list=[0.13, 0.50, 0.03, 0.40]
+MR_plot.colorbar_axes_list=[0.15, 0.50, 0.02, 0.40]
 
 #MR_plot.prefix_output_name = './plots/ExoEU_MR_standard_radius'
 
